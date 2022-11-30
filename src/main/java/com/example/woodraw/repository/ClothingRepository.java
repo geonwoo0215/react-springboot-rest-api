@@ -6,7 +6,7 @@ import com.example.woodraw.domain.clothing.Clothing;
 
 public interface ClothingRepository {
 
-	void save(Clothing clothing);
+	void insert(Clothing clothing);
 
 	Clothing findById(Long id);
 
