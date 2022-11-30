@@ -2,19 +2,19 @@ package com.example.woodraw.domain;
 
 public class Product {
 
-	public final Long id;
+	public final Long productId;
+
+	public final String productName;
 
 	public final int price;
 
-	public final String name;
-
 	public final Size size;
 
-	public Product(Long id, int price, String name, Size size) {
+	public Product(Long productId, String productName, int price,  Size size) {
 		priceValidation(price);
-		this.id = id;
+		this.productId = productId;
+		this.productName = productName;
 		this.price = price;
-		this.name = name;
 		this.size = size;
 	}
 
@@ -24,16 +24,16 @@ public class Product {
 		}
 	}
 
-	public Long getId() {
-		return id;
+	public Long getProductId() {
+		return productId;
+	}
+
+	public String getProductName() {
+		return productName;
 	}
 
 	public int getPrice() {
 		return price;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public Size getSize() {

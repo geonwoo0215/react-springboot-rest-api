@@ -14,7 +14,7 @@ class ProductTest {
 	@DisplayName("0이상의 가격이 입력되면 검증에 성공한다.")
 	void priceValidationSuccessTest() {
 
-		assertThatNoException().isThrownBy(() -> new Product(1L, 100, "나이키",SIZE_250));
+		assertThatNoException().isThrownBy(() -> new Product(1L, "나이키", 100,SIZE_250));
 
 	}
 
@@ -22,7 +22,7 @@ class ProductTest {
 	@DisplayName("0 미만의 가격이 입력되면 검증에 실패한다.")
 	void priceValidationFailTest() {
 
-		assertThatThrownBy(() -> new Product(1L, -20, "나이키",SIZE_250));
+		assertThatThrownBy(() -> new Product(1L, "나이키", -20,SIZE_250));
 
 	}
 
