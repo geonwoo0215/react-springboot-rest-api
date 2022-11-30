@@ -18,4 +18,8 @@ public enum Size {
 			.findAny()
 			.orElseThrow(() -> new IllegalArgumentException());
 	}
+
+	public String getLength() {
+		return length;
+	}
 }
