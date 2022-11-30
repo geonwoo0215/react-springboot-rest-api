@@ -4,24 +4,24 @@ import java.util.Objects;
 
 public class Member {
 
-	private final Long userId;
+	private final Long memberId;
 
-	private final String userName;
+	private final String memberName;
 
 	private final String email;
 
-	public Member(Long userId, String userName, String email) {
-		this.userId = userId;
-		this.userName = userName;
+	public Member(Long memberId, String memberName, String email) {
+		this.memberId = memberId;
+		this.memberName = memberName;
 		this.email = email;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getMemberId() {
+		return memberId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getMemberName() {
+		return memberName;
 	}
 
 	public String getEmail() {
@@ -35,12 +35,12 @@ public class Member {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		Member member = (Member)o;
-		return Objects.equals(getUserId(), member.getUserId()) && Objects.equals(getUserName(),
-			member.getUserName()) && Objects.equals(getEmail(), member.getEmail());
+		return Objects.equals(getMemberId(), member.getMemberId()) && Objects.equals(getMemberName(),
+			member.getMemberName()) && Objects.equals(getEmail(), member.getEmail());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getUserId(), getUserName(), getEmail());
+		return Objects.hash(getMemberId(), getMemberName(), getEmail());
 	}
 }
