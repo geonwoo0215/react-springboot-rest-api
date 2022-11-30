@@ -1,4 +1,4 @@
-package com.example.woodraw.repository;
+package com.example.woodraw.repository.product;
 
 import java.util.List;
 import java.util.Optional;
