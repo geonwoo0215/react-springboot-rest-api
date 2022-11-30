@@ -16,6 +16,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2:1.4.200'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.0.0'
+    implementation 'mysql:mysql-connector-java:8.0.31'
 }
 
 tasks.named('test') {
