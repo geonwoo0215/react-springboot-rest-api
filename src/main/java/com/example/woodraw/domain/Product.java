@@ -8,11 +8,14 @@ public class Product {
 
 	public final String name;
 
-	public Product(Long id, int price, String name) {
+	public final Size size;
+
+	public Product(Long id, int price, String name, Size size) {
 		priceValidation(price);
 		this.id = id;
 		this.price = price;
 		this.name = name;
+		this.size = size;
 	}
 
 	public void priceValidation(int price) {
@@ -31,5 +34,9 @@ public class Product {
 
 	public String getName() {
 		return name;
+	}
+
+	public Size getSize() {
+		return size;
 	}
 }
