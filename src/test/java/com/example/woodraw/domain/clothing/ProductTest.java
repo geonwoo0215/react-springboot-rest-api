@@ -5,13 +5,15 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ClothingTest {
+import com.example.woodraw.domain.Product;
+
+class ProductTest {
 
 	@Test
 	@DisplayName("0이상의 가격이 입력되면 검증에 성공한다.")
 	void priceValidationSuccessTest() {
 
-		assertThatNoException().isThrownBy(() -> new Shoe(1L, 100, "나이키"));
+		assertThatNoException().isThrownBy(() -> new Product(1L, 100, "나이키"));
 
 	}
 
@@ -19,7 +21,7 @@ class ClothingTest {
 	@DisplayName("0 미만의 가격이 입력되면 검증에 실패한다.")
 	void priceValidationFailTest() {
 
-		assertThatThrownBy(() -> new Shoe(1L, -20, "나이키"));
+		assertThatThrownBy(() -> new Product(1L, -20, "나이키"));
 
 	}
 
