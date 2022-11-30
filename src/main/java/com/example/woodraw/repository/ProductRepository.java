@@ -13,9 +13,7 @@ public interface ProductRepository {
 
 	List<Product> findAll();
 
-	void updatePriceById(Long id, int price);
-
-	void updateNameById(Long id, String name);
+	void updateByObject(Product product);
 
 	void deleteById(Long id);
 
