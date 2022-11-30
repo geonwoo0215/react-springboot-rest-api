@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.woodraw.domain.Product;
-import com.example.woodraw.domain.Size;
+import com.example.woodraw.domain.product.Product;
+import com.example.woodraw.domain.product.Size;
 
 @Repository
 public class ProductJdbcRepository implements ProductRepository {

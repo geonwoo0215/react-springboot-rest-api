@@ -1,4 +1,4 @@
-package com.example.woodraw.domain;
+package com.example.woodraw.domain.product;
 
 import java.util.Arrays;
 import java.util.Objects;

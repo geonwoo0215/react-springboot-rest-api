@@ -3,7 +3,7 @@ package com.example.woodraw.repository.product;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.woodraw.domain.Product;
+import com.example.woodraw.domain.product.Product;
 
 public interface ProductRepository {
 

@@ -1,12 +1,10 @@
-package com.example.woodraw.domain.clothing;
+package com.example.woodraw.domain.product;
 
-import static com.example.woodraw.domain.Size.*;
+import static com.example.woodraw.domain.product.Size.*;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import com.example.woodraw.domain.Product;
 
 class ProductTest {
 

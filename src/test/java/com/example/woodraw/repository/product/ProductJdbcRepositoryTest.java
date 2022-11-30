@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-import com.example.woodraw.domain.Product;
-import com.example.woodraw.domain.Size;
+import com.example.woodraw.domain.product.Product;
+import com.example.woodraw.domain.product.Size;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProductJdbcRepositoryTest {
