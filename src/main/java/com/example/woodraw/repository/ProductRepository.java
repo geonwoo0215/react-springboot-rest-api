@@ -1,16 +1,17 @@
 package com.example.woodraw.repository;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.example.woodraw.domain.clothing.Clothing;
+import com.example.woodraw.domain.Product;
 
-public interface ClothingRepository {
+public interface ProductRepository {
 
-	void insert(Clothing clothing);
+	void insert(Product product);
 
-	Clothing findById(Long id);
+	Optional<Product> findById(Long id);
 
-	List<Clothing> findAll();
+	List<Product> findAll();
 
 	void updatePriceById(Long id, int price);
 
