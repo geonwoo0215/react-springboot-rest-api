@@ -61,21 +61,6 @@ class ProductJdbcRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("제품을 저장하고 잘못된 id 값으로 조회하면 반환을 실패한다.")
-	void insertFailTest() {
-
-		//given
-		Product product = new Product(1L, "나이키", 1500, Size.SIZE_250);
-		productJdbcRepository.insert(product);
-
-		//when
-		Optional<Product> savedProduct = productJdbcRepository.findById(2L);
-
-		//then
-		Assertions.assertThat(savedProduct).isEmpty();
-	}
-
-	@Test
 	@DisplayName("제품을 여러개 저장하고 모든 제품을 리스트에 저장하여 반환한다.")
 	void findAllTest() {
 
