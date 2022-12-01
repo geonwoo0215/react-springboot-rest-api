@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public enum Size {
-	SIZE_250("250");
+	SIZE_250("250"),
+	SIZE_260("260");
 
 	private final String length;
 

@@ -1,5 +1,7 @@
 package com.example.woodraw.domain.product;
 
+import java.util.Objects;
+
 public class ProductDetail {
 
 	private final Long detailId;
@@ -31,5 +33,22 @@ public class ProductDetail {
 
 	public Integer getQuantity() {
 		return quantity;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ProductDetail that = (ProductDetail)o;
+		return Objects.equals(getDetailId(), that.getDetailId()) && Objects.equals(getProductId(),
+			that.getProductId()) && getSize() == that.getSize() && Objects.equals(getQuantity(),
+			that.getQuantity());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getDetailId(), getProductId(), getSize(), getQuantity());
 	}
 }
