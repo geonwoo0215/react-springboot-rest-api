@@ -48,7 +48,7 @@ class ProductJdbcRepositoryTest {
 	void insertSuccessTest() {
 
 		//given
-		Product product = new Product(1L, "나이키", 1500, Size.SIZE_250);
+		Product product = new Product(1L, "나이키", 1500);
 		productJdbcRepository.insert(product);
 
 		//when
@@ -65,8 +65,8 @@ class ProductJdbcRepositoryTest {
 	void findAllTest() {
 
 		//given
-		Product product1 = new Product(1L, "나이키", 1500, Size.SIZE_250);
-		Product product2 = new Product(2L, "뉴발란스", 3000, Size.SIZE_250);
+		Product product1 = new Product(1L, "나이키", 1500);
+		Product product2 = new Product(2L, "뉴발란스", 3000);
 		productJdbcRepository.insert(product1);
 		productJdbcRepository.insert(product2);
 
@@ -84,8 +84,8 @@ class ProductJdbcRepositoryTest {
 	void updateByObjectSuccessTest() {
 
 		//given
-		Product product = new Product(1L, "나이키", 1500, Size.SIZE_250);
-		Product updateProduct = new Product(1L, "아디다스", 1000, Size.SIZE_250);
+		Product product = new Product(1L, "나이키", 1500);
+		Product updateProduct = new Product(1L, "아디다스", 1000);
 		productJdbcRepository.insert(product);
 
 		//when
@@ -103,7 +103,7 @@ class ProductJdbcRepositoryTest {
 	void deleteByIdSuccessTest() {
 
 		//given
-		Product product = new Product(1L, "나이키", 1500, Size.SIZE_250);
+		Product product = new Product(1L, "나이키", 1500);
 		productJdbcRepository.insert(product);
 
 		//when

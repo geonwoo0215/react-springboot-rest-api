@@ -10,14 +10,11 @@ public class Product {
 
 	public final int price;
 
-	public final Size size;
-
-	public Product(Long productId, String productName, int price,  Size size) {
+	public Product(Long productId, String productName, int price) {
 		priceValidation(price);
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
-		this.size = size;
 	}
 
 	public void priceValidation(int price) {
@@ -38,10 +35,6 @@ public class Product {
 		return price;
 	}
 
-	public Size getSize() {
-		return size;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -50,11 +43,11 @@ public class Product {
 			return false;
 		Product product = (Product)o;
 		return getPrice() == product.getPrice() && Objects.equals(getProductId(), product.getProductId())
-			&& Objects.equals(getProductName(), product.getProductName()) && getSize() == product.getSize();
+			&& Objects.equals(getProductName(), product.getProductName()) ;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getProductId(), getProductName(), getPrice(), getSize());
+		return Objects.hash(getProductId(), getProductName(), getPrice());
 	}
 }

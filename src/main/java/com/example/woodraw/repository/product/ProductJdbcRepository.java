@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.woodraw.domain.product.Product;
-import com.example.woodraw.domain.product.Size;
 
 @Repository
 public class ProductJdbcRepository implements ProductRepository {
@@ -28,7 +27,6 @@ public class ProductJdbcRepository implements ProductRepository {
 		paramMap.put("productId", product.getProductId());
 		paramMap.put("productName", product.getProductName());
 		paramMap.put("price", product.getPrice());
-		paramMap.put("size", product.getSize().getLength());
 		return paramMap;
 	}
 
@@ -37,11 +35,10 @@ public class ProductJdbcRepository implements ProductRepository {
 		var id = result.getLong("product_id");
 		var name = result.getString("product_name");
 		var price = result.getInt("price");
-		var size = Size.getSizeByLength(result.getString("size"));
-		return new Product(id, name, price, size);
+		return new Product(id, name, price);
 	};
 
-	String insert = "insert into product(product_id,product_name,price,size) values(:productId, :productName, :price,:size)";
+	String insert = "insert into product(product_id,product_name,price) values(:productId, :productName, :price)";
 	String findById = "select * from product where product_id = :productId";
 	String findAll = "select * from product";
 	String updateByObject = "update product set price = :price, product_name = :productName where product_id = :productId";
