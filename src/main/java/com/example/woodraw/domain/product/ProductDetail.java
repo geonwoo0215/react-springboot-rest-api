@@ -4,15 +4,15 @@ public class ProductDetail {
 
 	private final Long detailId;
 
-	private final Product product;
+	private final Long productId;
 
 	private final Size size;
 
 	private final Integer quantity;
 
-	public ProductDetail(Long detailId, Product product, Size size, Integer quantity) {
+	public ProductDetail(Long detailId, Long productId, Size size, Integer quantity) {
 		this.detailId = detailId;
-		this.product = product;
+		this.productId = productId;
 		this.size = size;
 		this.quantity = quantity;
 	}
@@ -21,8 +21,8 @@ public class ProductDetail {
 		return detailId;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Long getProductId() {
+		return productId;
 	}
 
 	public Size getSize() {
