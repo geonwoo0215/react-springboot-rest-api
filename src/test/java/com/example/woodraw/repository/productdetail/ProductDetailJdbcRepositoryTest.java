@@ -44,7 +44,7 @@ class ProductDetailJdbcRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("멤버를 저장하고 id로 조회하여 성공적으로 반환한다.")
+	@DisplayName("제품 상세를 저장하고 id로 조회하여 성공적으로 반환한다.")
 	void insertSuccessTest() {
 
 		//given
@@ -61,7 +61,7 @@ class ProductDetailJdbcRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("멤버를 저장하고 모든 제품을 리스트에 담아 반환한다.")
+	@DisplayName("제품 상세를 저장하고 모든 제품상세를 리스트에 담아 반환한다.")
 	void findAllTest() {
 
 		//given
@@ -79,7 +79,7 @@ class ProductDetailJdbcRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("파라미터로 product 객체를 받아 성공적으로 업데이트 한다.")
+	@DisplayName("파라미터로 productDetail 객체를 받아 성공적으로 업데이트 한다.")
 	void updateByObjectSuccessTest() {
 
 		//given
@@ -98,7 +98,7 @@ class ProductDetailJdbcRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("파라미터로 id를 받아 제품을 삭제한다.")
+	@DisplayName("파라미터로 id를 받아 제품상세를 삭제한다.")
 	void deleteByIdSuccessTest() {
 
 		//given
