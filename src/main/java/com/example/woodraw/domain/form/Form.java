@@ -1,6 +1,7 @@
 package com.example.woodraw.domain.form;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.example.woodraw.domain.product.Size;
 
@@ -43,5 +44,23 @@ public class Form {
 
 	public Size getSize() {
 		return size;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Form form = (Form)o;
+		return Objects.equals(getFormId(), form.getFormId()) && Objects.equals(getMemberId(),
+			form.getMemberId()) && Objects.equals(getEventId(), form.getEventId()) && Objects.equals(
+			getSubmission(), form.getSubmission()) && getSize() == form.getSize();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getFormId(), getMemberId(), getEventId(), getSubmission(), getSize());
 	}
 }

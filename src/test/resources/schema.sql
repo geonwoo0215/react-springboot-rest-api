@@ -34,8 +34,7 @@ create table form
     member_id  bigint     not null,
     event_id   bigint     not null,
     submission timestamp  not null,
-    draw_size  varchar(3) not null,
+    size       varchar(3) not null,
     foreign key (member_id) references member (member_id),
     foreign key (event_id) references event (event_id)
 );
-
