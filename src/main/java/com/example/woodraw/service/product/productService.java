@@ -8,13 +8,13 @@ import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.repository.product.ProductRepository;
 
 @Service
-public class productService {
-
-	public productService(ProductRepository productRepository) {
-		this.productRepository = productRepository;
-	}
+public class ProductService {
 
 	private final ProductRepository productRepository;
+
+	public ProductService(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
 
 	public void insert(Product product) {
 		productRepository.insert(product);

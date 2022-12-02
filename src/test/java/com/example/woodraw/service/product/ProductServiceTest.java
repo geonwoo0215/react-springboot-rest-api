@@ -22,7 +22,7 @@ class ProductServiceTest {
 	ProductJdbcRepository productJdbcRepository;
 
 	@InjectMocks
-	productService productService;
+	ProductService productService;
 
 	@Test
 	@DisplayName("제품을 저장한다. - 성공")
