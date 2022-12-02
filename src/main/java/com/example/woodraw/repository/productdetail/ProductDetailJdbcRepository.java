@@ -9,10 +9,12 @@ import java.util.Optional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.example.woodraw.domain.product.ProductDetail;
 import com.example.woodraw.domain.product.Size;
 
+@Repository
 public class ProductDetailJdbcRepository implements ProductDetailRepository {
 
 	private final NamedParameterJdbcTemplate jdbcTemplate;

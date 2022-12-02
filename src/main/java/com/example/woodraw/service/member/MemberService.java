@@ -2,9 +2,12 @@ package com.example.woodraw.service.member;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.woodraw.domain.member.Member;
 import com.example.woodraw.repository.member.MemberRepository;
 
+@Service
 public class MemberService {
 
 	private final MemberRepository memberRepository;
@@ -17,8 +20,8 @@ public class MemberService {
 		memberRepository.insert(member);
 	}
 
-	public Member findById(Long productId) {
-		return memberRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+	public Member findById(Long memberId) {
+		return memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
 	}
 
 	public List<Member> findAll() {
