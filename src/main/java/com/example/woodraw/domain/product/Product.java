@@ -2,6 +2,8 @@ package com.example.woodraw.domain.product;
 
 import java.util.Objects;
 
+import com.example.woodraw.controller.dto.ProductResponseDto;
+
 public class Product {
 
 	private final Long productId;
@@ -34,6 +36,10 @@ public class Product {
 
 	public Integer getPrice() {
 		return price;
+	}
+
+	public ProductResponseDto toProductResponseDto() {
+		return new ProductResponseDto(this.productId, this.productName, this.price);
 	}
 
 	@Override

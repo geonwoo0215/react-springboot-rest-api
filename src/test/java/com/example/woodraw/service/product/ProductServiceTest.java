@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.example.woodraw.controller.dto.ProductRequestDto;
 import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.repository.product.ProductJdbcRepository;
 
@@ -29,14 +30,14 @@ class ProductServiceTest {
 	void insertTest() {
 
 		//given
-		Product product = new Product(1L, "나이키", 1500);
-		Mockito.doNothing().when(productJdbcRepository).insert(product);
+		ProductRequestDto productRequestDto = new ProductRequestDto("나이키", 1500);
+		Mockito.doNothing().when(productJdbcRepository).insert(productRequestDto.toProduct());
 
 		//when
-		productService.insert(product);
+		productService.insert(productRequestDto);
 
 		//then
-		Mockito.verify(productJdbcRepository).insert(product);
+		Mockito.verify(productJdbcRepository).insert(productRequestDto.toProduct());
 	}
 
 	@Test
@@ -77,14 +78,14 @@ class ProductServiceTest {
 	void updateByObjectTest() {
 
 		//given
-		Product product = new Product(1L, "나이키", 1500);
-		Mockito.doNothing().when(productJdbcRepository).updateByObject(product);
+		ProductRequestDto productRequestDto = new ProductRequestDto("나이키", 1500);
+		Mockito.doNothing().when(productJdbcRepository).updateByObject(productRequestDto.toProduct());
 
 		//when
-		productService.updateByObject(product);
+		productService.updateByObject(productRequestDto);
 
 		//then
-		Mockito.verify(productJdbcRepository).updateByObject(product);
+		Mockito.verify(productJdbcRepository).updateByObject(productRequestDto.toProduct());
 
 	}
 

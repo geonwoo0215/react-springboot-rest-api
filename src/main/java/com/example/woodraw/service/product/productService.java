@@ -1,9 +1,12 @@
 package com.example.woodraw.service.product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.woodraw.controller.dto.ProductRequestDto;
+import com.example.woodraw.controller.dto.ProductResponseDto;
 import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.repository.product.ProductRepository;
 
@@ -16,20 +19,20 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 
-	public void insert(Product product) {
-		productRepository.insert(product);
+	public void insert(ProductRequestDto productRequestDto) {
+		productRepository.insert(productRequestDto.toProduct());
 	}
 
-	public Product findById(Long productId) {
-		return productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+	public ProductResponseDto findById(Long productId) {
+		return productRepository.findById(productId).orElseThrow(IllegalArgumentException::new).toProductResponseDto();
 	}
 
-	public List<Product> findAll() {
-		return productRepository.findAll();
+	public List<ProductResponseDto> findAll() {
+		return productRepository.findAll().stream().map(Product::toProductResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(Product product) {
-		productRepository.updateByObject(product);
+	public void updateByObject(ProductRequestDto productRequestDto) {
+		productRepository.updateByObject(productRequestDto.toProduct());
 	}
 
 	public void deleteById(Long productId) {
