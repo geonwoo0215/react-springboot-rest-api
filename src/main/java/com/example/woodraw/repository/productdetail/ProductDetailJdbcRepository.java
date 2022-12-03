@@ -4,11 +4,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.woodraw.domain.product.ProductDetail;
@@ -40,7 +45,7 @@ public class ProductDetailJdbcRepository implements ProductDetailRepository {
 		return new ProductDetail(detailId, productId, size, quantity);
 	};
 
-	String insert = "insert into detail(detail_id,product_id,size,quantity) values(:detailId, :productId, :size, :quantity)";
+	String insert = "insert into detail(product_id,size,quantity) values(:productId, :size, :quantity)";
 	String findById = "select * from detail where detail_id = :detailId";
 	String findAll = "select * from detail";
 	String updateByObject = "update detail set size = :size, quantity = :quantity where detail_id = :detailId";
@@ -48,9 +53,11 @@ public class ProductDetailJdbcRepository implements ProductDetailRepository {
 	String deleteAll = "delete from detail";
 
 	@Override
-	public void insert(ProductDetail productDetail) {
-		Map<String, Object> paramMap = toParamMap(productDetail);
-		jdbcTemplate.update(insert, paramMap);
+	public Long insert(ProductDetail productDetail) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource(toParamMap(productDetail));
+		jdbcTemplate.update(insert, sqlParameterSource,keyHolder);
+		return Objects.requireNonNull(keyHolder.getKey()).longValue();
 	}
 
 	@Override

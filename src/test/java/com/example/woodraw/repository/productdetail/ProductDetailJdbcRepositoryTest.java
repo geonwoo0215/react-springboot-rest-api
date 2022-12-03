@@ -15,8 +15,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.domain.product.ProductDetail;
 import com.example.woodraw.domain.product.Size;
+import com.example.woodraw.repository.product.ProductJdbcRepository;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProductDetailJdbcRepositoryTest {
@@ -31,10 +33,12 @@ class ProductDetailJdbcRepositoryTest {
 		return new NamedParameterJdbcTemplate(dataSource());
 	}
 
+	ProductJdbcRepository productJdbcRepository;
 	ProductDetailJdbcRepository productDetailJdbcRepository;
 
 	@BeforeAll
 	void setUp() {
+		productJdbcRepository = new ProductJdbcRepository(namedParameterJdbcTemplate());
 		productDetailJdbcRepository = new ProductDetailJdbcRepository(namedParameterJdbcTemplate());
 	}
 
@@ -45,18 +49,24 @@ class ProductDetailJdbcRepositoryTest {
 
 	@Test
 	@DisplayName("제품 상세를 저장하고 id로 조회하여 성공적으로 반환한다.")
-	void insertSuccessTest() {
+	void findByIdTest() {
+
+		Size size = Size.SIZE_250;
+		Integer quantity = 50;
 
 		//given
-		ProductDetail productDetail = new ProductDetail(1L, 1L, Size.SIZE_250, 50);
+		Product product = new Product(null, "나이키", 1500);
+		Long productId = productJdbcRepository.insert(product);
+		ProductDetail productDetail = new ProductDetail(null, productId, size, quantity);
+		Long productDetailId = productDetailJdbcRepository.insert(productDetail);
 
 		//when
-		productDetailJdbcRepository.insert(productDetail);
-		Optional<ProductDetail> savedProductDetail = productDetailJdbcRepository.findById(productDetail.getDetailId());
+		Optional<ProductDetail> savedProductDetail = productDetailJdbcRepository.findById(productDetailId);
 
 		//then
 		Assertions.assertThat(savedProductDetail).isPresent();
-		Assertions.assertThat(savedProductDetail.get()).isEqualTo(productDetail);
+		Assertions.assertThat(savedProductDetail.get().getSize()).isEqualTo(size);
+		Assertions.assertThat(savedProductDetail.get().getQuantity()).isEqualTo(quantity);
 
 	}
 
@@ -65,8 +75,8 @@ class ProductDetailJdbcRepositoryTest {
 	void findAllTest() {
 
 		//given
-		ProductDetail productDetail1 = new ProductDetail(1L, 1L, Size.SIZE_250, 50);
-		ProductDetail productDetail2 = new ProductDetail(2L, 1L, Size.SIZE_260, 50);
+		ProductDetail productDetail1 = new ProductDetail(null, 1L, Size.SIZE_250, 50);
+		ProductDetail productDetail2 = new ProductDetail(null, 1L, Size.SIZE_260, 50);
 		productDetailJdbcRepository.insert(productDetail1);
 		productDetailJdbcRepository.insert(productDetail2);
 
@@ -75,25 +85,28 @@ class ProductDetailJdbcRepositoryTest {
 
 		//then
 		Assertions.assertThat(productDetailListList).hasSize(2);
-		Assertions.assertThat(productDetailListList).contains(productDetail1).contains(productDetail2);
 	}
 
 	@Test
 	@DisplayName("파라미터로 productDetail 객체를 받아 성공적으로 업데이트 한다.")
 	void updateByObjectSuccessTest() {
 
+		Size size = Size.SIZE_260;
+		Integer quantity = 60;
+
 		//given
-		ProductDetail productDetail = new ProductDetail(1L, 1L, Size.SIZE_250, 50);
-		ProductDetail updateProductDetail = new ProductDetail(1L, 1L, Size.SIZE_250, 60);
-		productDetailJdbcRepository.insert(productDetail);
+		ProductDetail productDetail = new ProductDetail(null, 1L, Size.SIZE_250, 50);
+		Long productDetailId = productDetailJdbcRepository.insert(productDetail);
+		ProductDetail updateProductDetail = new ProductDetail(productDetailId, 1L, size, quantity);
 
 		//when
 		productDetailJdbcRepository.updateByObject(updateProductDetail);
-		Optional<ProductDetail> updatedProductDetail = productDetailJdbcRepository.findById(productDetail.getDetailId());
+		Optional<ProductDetail> updatedProductDetail = productDetailJdbcRepository.findById(productDetailId);
 
 		//then
 		Assertions.assertThat(updatedProductDetail).isPresent();
-		Assertions.assertThat(updatedProductDetail.get()).isEqualTo(updateProductDetail);
+		Assertions.assertThat(updatedProductDetail.get().getSize()).isEqualTo(size);
+		Assertions.assertThat(updatedProductDetail.get().getQuantity()).isEqualTo(quantity);
 
 	}
 
@@ -102,12 +115,12 @@ class ProductDetailJdbcRepositoryTest {
 	void deleteByIdSuccessTest() {
 
 		//given
-		ProductDetail productDetail = new ProductDetail(1L, 1L, Size.SIZE_250, 50);
-		productDetailJdbcRepository.insert(productDetail);
+		ProductDetail productDetail = new ProductDetail(null, 1L, Size.SIZE_250, 50);
+		Long productDetailId = productDetailJdbcRepository.insert(productDetail);
 
 		//when
-		productDetailJdbcRepository.deleteById(productDetail.getDetailId());
-		Optional<ProductDetail> savedProductDetail = productDetailJdbcRepository.findById(productDetail.getDetailId());
+		productDetailJdbcRepository.deleteById(productDetailId);
+		Optional<ProductDetail> savedProductDetail = productDetailJdbcRepository.findById(productDetailId);
 
 		//then
 		Assertions.assertThat(savedProductDetail).isEmpty();

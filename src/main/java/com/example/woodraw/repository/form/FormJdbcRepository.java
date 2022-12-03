@@ -4,11 +4,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.woodraw.domain.form.Form;
@@ -42,7 +47,7 @@ public class FormJdbcRepository implements FormRepository {
 		return new Form(formId, memberId, eventId, submission, size);
 	};
 
-	String insert = "insert into form(form_id,member_id,event_id,submission,size) values(:formId, :memberId, :eventId, :submission, :size)";
+	String insert = "insert into form(member_id,event_id,submission,size) values(:memberId, :eventId, :submission, :size)";
 	String findById = "select * from form where form_id = :formId";
 	String findAll = "select * from form";
 	String updateByObject = "update form set size = :size where form_id = :formId";
@@ -50,9 +55,11 @@ public class FormJdbcRepository implements FormRepository {
 	String deleteAll = "delete from form";
 
 	@Override
-	public void insert(Form form) {
-		Map<String, Object> paramMap = toParamMap(form);
-		jdbcTemplate.update(insert, paramMap);
+	public Long insert(Form form) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource(toParamMap(form));
+		jdbcTemplate.update(insert, sqlParameterSource,keyHolder);
+		return Objects.requireNonNull(keyHolder.getKey()).longValue();
 	}
 
 	@Override

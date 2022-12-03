@@ -7,7 +7,7 @@ import com.example.woodraw.domain.product.ProductDetail;
 
 public interface ProductDetailRepository {
 
-	void insert(ProductDetail productDetail);
+	Long insert(ProductDetail productDetail);
 
 	Optional<ProductDetail> findById(Long id);
 

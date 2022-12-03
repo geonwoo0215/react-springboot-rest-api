@@ -49,20 +49,22 @@ class EventJdbcRepositoryTest {
 
 	@Test
 	@DisplayName("이벤트를 저장하고 id로 조회하여 성공적으로 반환한다.")
-	void insertSuccessTest() {
+	void findByIdTest() {
+
+		LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
 
 		//given
-		Product product = new Product(1L, "나이키", 1500);
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
+		Product product = new Product(null, "나이키", 1500);
+		Long productId = productJdbcRepository.insert(product);
+		Event event = new Event(null, productId, localDateTime);
+		Long eventId = eventJdbcRepository.insert(event);
 
 		//when
-		productJdbcRepository.insert(product);
-		eventJdbcRepository.insert(event);
-		Optional<Event> savedEvent = eventJdbcRepository.findById(event.getEventId());
+		Optional<Event> savedEvent = eventJdbcRepository.findById(eventId);
 
 		//then
 		Assertions.assertThat(savedEvent).isPresent();
-		Assertions.assertThat(savedEvent.get()).isEqualTo(event);
+		Assertions.assertThat(savedEvent.get().getDeadLine()).isEqualTo(localDateTime);
 
 	}
 
@@ -71,13 +73,13 @@ class EventJdbcRepositoryTest {
 	void findAllTest() {
 
 		//given
-		Product product1= new Product(1L, "나이키", 1500);
-		Product product2 = new Product(2L, "아디다스", 2000);
-		productJdbcRepository.insert(product1);
-		productJdbcRepository.insert(product2);
+		Product product1 = new Product(null, "나이키", 1500);
+		Product product2 = new Product(null, "아디다스", 2000);
+		Long productId1 = productJdbcRepository.insert(product1);
+		Long productId2 = productJdbcRepository.insert(product2);
 
-		Event event1 = new Event(1L, 1L, LocalDateTime.now().withNano(0));
-		Event event2 = new Event(2L, 2L, LocalDateTime.now().withNano(0));
+		Event event1 = new Event(null, productId1, LocalDateTime.now().withNano(0));
+		Event event2 = new Event(null, productId2, LocalDateTime.now().withNano(0));
 		eventJdbcRepository.insert(event1);
 		eventJdbcRepository.insert(event2);
 
@@ -86,28 +88,29 @@ class EventJdbcRepositoryTest {
 
 		//then
 		Assertions.assertThat(eventList).hasSize(2);
-		Assertions.assertThat(eventList).contains(event1).contains(event2);
 	}
 
 	@Test
 	@DisplayName("파라미터로 event 객체를 받아 성공적으로 업데이트 한다.")
 	void updateByObjectSuccessTest() {
 
-		//given
-		Product product= new Product(1L, "나이키", 1500);
-		productJdbcRepository.insert(product);
+		LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
 
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
-		Event updateEvent = new Event(1L, 1L, event.getDeadLine().plusHours(2));
-		eventJdbcRepository.insert(event);
+		//given
+		Product product = new Product(null, "나이키", 1500);
+		Long productId = productJdbcRepository.insert(product);
+
+		Event event = new Event(null, productId, localDateTime);
+		Long eventId = eventJdbcRepository.insert(event);
+		Event updateEvent = new Event(eventId, productId, localDateTime.plusHours(2));
 
 		//when
 		eventJdbcRepository.updateByObject(updateEvent);
-		Optional<Event> updatedEvent = eventJdbcRepository.findById(event.getEventId());
+		Optional<Event> updatedEvent = eventJdbcRepository.findById(eventId);
 
 		//then
 		Assertions.assertThat(updatedEvent).isPresent();
-		Assertions.assertThat(updatedEvent.get()).isEqualTo(updateEvent);
+		Assertions.assertThat(updatedEvent.get().getDeadLine()).isEqualTo(localDateTime.plusHours(2));
 
 	}
 
@@ -116,15 +119,15 @@ class EventJdbcRepositoryTest {
 	void deleteByIdSuccessTest() {
 
 		//given
-		Product product= new Product(1L, "나이키", 1500);
-		productJdbcRepository.insert(product);
+		Product product = new Product(null, "나이키", 1500);
+		Long productId = productJdbcRepository.insert(product);
 
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
-		eventJdbcRepository.insert(event);
+		Event event = new Event(null, productId, LocalDateTime.now().withNano(0));
+		Long eventId = eventJdbcRepository.insert(event);
 
 		//when
-		eventJdbcRepository.deleteById(event.getEventId());
-		Optional<Event> savedEvent = eventJdbcRepository.findById(event.getEventId());
+		eventJdbcRepository.deleteById(eventId);
+		Optional<Event> savedEvent = eventJdbcRepository.findById(eventId);
 
 		//then
 		Assertions.assertThat(savedEvent).isEmpty();

@@ -42,18 +42,22 @@ class MemberJdbcRepositoryTest {
 
 	@Test
 	@DisplayName("멤버를 저장하고 id로 조회하여 성공적으로 반환한다.")
-	void insertSuccessTest() {
+	void findByIdTest() {
+
+		String memberName = "이건우";
+		String email = "gw980215";
 
 		//given
-		Member member = new Member(1L, "이건우", "gw980215");
+		Member member = new Member(null, memberName, email);
+		Long savedId = memberJdbcRepository.insert(member);
 
 		//when
-		memberJdbcRepository.insert(member);
-		Optional<Member> savedMember = memberJdbcRepository.findById(member.getMemberId());
+		Optional<Member> savedMember = memberJdbcRepository.findById(savedId);
 
 		//then
 		Assertions.assertThat(savedMember).isPresent();
-		Assertions.assertThat(savedMember.get()).isEqualTo(member);
+		Assertions.assertThat(savedMember.get().getMemberName()).isEqualTo(memberName);
+		Assertions.assertThat(savedMember.get().getEmail()).isEqualTo(email);
 
 	}
 
@@ -62,8 +66,8 @@ class MemberJdbcRepositoryTest {
 	void findAllTest() {
 
 		//given
-		Member member1 = new Member(1L, "이건우", "gw980215");
-		Member member2 = new Member(2L, "블랙독", "blackDog");
+		Member member1 = new Member(null, "이건우", "gw980215");
+		Member member2 = new Member(null, "블랙독", "blackDog");
 		memberJdbcRepository.insert(member1);
 		memberJdbcRepository.insert(member2);
 
@@ -72,25 +76,28 @@ class MemberJdbcRepositoryTest {
 
 		//then
 		Assertions.assertThat(memberList).hasSize(2);
-		Assertions.assertThat(memberList).contains(member1).contains(member2);
 	}
 
 	@Test
 	@DisplayName("파라미터로 product 객체를 받아 성공적으로 업데이트 한다.")
 	void updateByObjectSuccessTest() {
 
+		String memberName = "이건형";
+		String email = "gh950401";
+
 		//given
-		Member member = new Member(1L, "이건우", "gw980215");
-		Member updatedMember = new Member(1L, "이건형", "gw980215");
-		memberJdbcRepository.insert(member);
+		Member member = new Member(null, "이건우", "gw980215");
+		Long savedId = memberJdbcRepository.insert(member);
+		Member updateMember = new Member(savedId, "이건형", "gh950401");
 
 		//when
-		memberJdbcRepository.updateByObject(updatedMember);
-		Optional<Member> updatedProduct = memberJdbcRepository.findById(member.getMemberId());
+		memberJdbcRepository.updateByObject(updateMember);
+		Optional<Member> updatedMember = memberJdbcRepository.findById(savedId);
 
 		//then
-		Assertions.assertThat(updatedProduct).isPresent();
-		Assertions.assertThat(updatedProduct).isEqualTo(updatedProduct);
+		Assertions.assertThat(updatedMember).isPresent();
+		Assertions.assertThat(updatedMember.get().getMemberName()).isEqualTo(memberName);
+		Assertions.assertThat(updatedMember.get().getEmail()).isEqualTo(email);
 
 	}
 
@@ -99,12 +106,12 @@ class MemberJdbcRepositoryTest {
 	void deleteByIdSuccessTest() {
 
 		//given
-		Member member = new Member(1L, "이건우", "gw980215");
-		memberJdbcRepository.insert(member);
+		Member member = new Member(null, "이건우", "gw980215");
+		Long memberId = memberJdbcRepository.insert(member);
 
 		//when
-		memberJdbcRepository.deleteById(member.getMemberId());
-		Optional<Member> savedProduct = memberJdbcRepository.findById(member.getMemberId());
+		memberJdbcRepository.deleteById(memberId);
+		Optional<Member> savedProduct = memberJdbcRepository.findById(memberId);
 
 		//then
 		Assertions.assertThat(savedProduct).isEmpty();

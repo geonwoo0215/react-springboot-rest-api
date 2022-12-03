@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.example.woodraw.domain.form.Form;
 
 public interface FormRepository {
-	void insert(Form form);
+	Long insert(Form form);
 
 	Optional<Form> findById(Long id);
 

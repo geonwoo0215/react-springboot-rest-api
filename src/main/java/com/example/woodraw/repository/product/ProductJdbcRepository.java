@@ -4,11 +4,18 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.woodraw.domain.product.Product;
@@ -30,6 +37,7 @@ public class ProductJdbcRepository implements ProductRepository {
 		return paramMap;
 	}
 
+
 	public RowMapper<Product> productRowMapper = (result, i) -> {
 
 		var id = result.getLong("product_id");
@@ -38,7 +46,9 @@ public class ProductJdbcRepository implements ProductRepository {
 		return new Product(id, name, price);
 	};
 
-	String insert = "insert into product(product_id,product_name,price) values(:productId, :productName, :price)";
+
+
+	String insert = "insert into product(product_name,price) values(:productName, :price)";
 	String findById = "select * from product where product_id = :productId";
 	String findAll = "select * from product";
 	String updateByObject = "update product set price = :price, product_name = :productName where product_id = :productId";
@@ -46,9 +56,11 @@ public class ProductJdbcRepository implements ProductRepository {
 	String deleteAll = "delete from product";
 
 	@Override
-	public void insert(Product product) {
-		Map<String, Object> paramMap = toParamMap(product);
-		jdbcTemplate.update(insert, paramMap);
+	public Long insert(Product product) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource(toParamMap(product));
+		jdbcTemplate.update(insert, sqlParameterSource,keyHolder);
+		return Objects.requireNonNull(keyHolder.getKey()).longValue();
 	}
 
 	@Override
@@ -69,8 +81,9 @@ public class ProductJdbcRepository implements ProductRepository {
 
 	@Override
 	public void updateByObject(Product product) {
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource(toParamMap(product));
 		try {
-			jdbcTemplate.update(updateByObject, toParamMap(product));
+			jdbcTemplate.update(updateByObject, sqlParameterSource);
 
 		} catch (DataAccessException e) {
 			e.printStackTrace();

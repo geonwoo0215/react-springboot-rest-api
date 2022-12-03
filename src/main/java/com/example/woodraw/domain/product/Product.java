@@ -4,11 +4,12 @@ import java.util.Objects;
 
 public class Product {
 
-	public final Long productId;
+	private final Long productId;
 
-	public final String productName;
+	private final String productName;
 
-	public final int price;
+	private final Integer price;
+
 
 	public Product(Long productId, String productName, int price) {
 		priceValidation(price);
@@ -31,19 +32,20 @@ public class Product {
 		return productName;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
 	@Override
 	public boolean equals(Object o) {
+
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
 		Product product = (Product)o;
-		return getPrice() == product.getPrice() && Objects.equals(getProductId(), product.getProductId())
-			&& Objects.equals(getProductName(), product.getProductName()) ;
+		return Objects.equals(getProductId(), product.getProductId()) && Objects.equals(
+			getProductName(), product.getProductName()) && Objects.equals(getPrice(), product.getPrice());
 	}
 
 	@Override

@@ -4,11 +4,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.woodraw.domain.member.Member;
@@ -38,7 +43,7 @@ public class MemberJdbcRepository implements MemberRepository {
 		return new Member(id, name, email);
 	};
 
-	String insert = "insert into member(member_id,member_name,email) values(:memberId, :memberName, :email)";
+	String insert = "insert into member(member_name,email) values(:memberName, :email)";
 	String findById = "select * from member where member_id = :memberId";
 	String findAll = "select * from member";
 	String updateByObject = "update member set member_name = :memberName, email = :email where member_id = :memberId";
@@ -46,9 +51,11 @@ public class MemberJdbcRepository implements MemberRepository {
 	String deleteAll = "delete from member";
 
 	@Override
-	public void insert(Member product) {
-		Map<String, Object> paramMap = toParamMap(product);
-		jdbcTemplate.update(insert, paramMap);
+	public Long insert(Member member) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource(toParamMap(member));
+		jdbcTemplate.update(insert, sqlParameterSource,keyHolder);
+		return Objects.requireNonNull(keyHolder.getKey()).longValue();
 	}
 
 	@Override

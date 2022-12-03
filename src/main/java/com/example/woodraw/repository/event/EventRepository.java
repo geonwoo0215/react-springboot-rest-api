@@ -7,7 +7,7 @@ import com.example.woodraw.domain.event.Event;
 
 public interface EventRepository {
 
-	void insert(Event event);
+	Long insert(Event event);
 
 	Optional<Event> findById(Long id);
 

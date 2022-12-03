@@ -7,7 +7,7 @@ import com.example.woodraw.domain.member.Member;
 
 public interface MemberRepository {
 
-	void insert(Member member);
+	Long insert(Member member);
 
 	Optional<Member> findById(Long id);
 
