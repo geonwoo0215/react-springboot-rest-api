@@ -1,9 +1,12 @@
 package com.example.woodraw.service.form;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.woodraw.controller.dto.form.FormRequestDto;
+import com.example.woodraw.controller.dto.form.FormResponseDto;
 import com.example.woodraw.domain.form.Form;
 import com.example.woodraw.repository.form.FormJdbcRepository;
 
@@ -16,20 +19,20 @@ public class FormService {
 		this.formJdbcRepository = formJdbcRepository;
 	}
 
-	public void insert(Form form) {
-		formJdbcRepository.insert(form);
+	public void insert(FormRequestDto formRequestDto) {
+		formJdbcRepository.insert(formRequestDto.toForm());
 	}
 
-	public Form findById(Long formId) {
-		return formJdbcRepository.findById(formId).orElseThrow(IllegalArgumentException::new);
+	public FormResponseDto findById(Long formId) {
+		return formJdbcRepository.findById(formId).orElseThrow(IllegalArgumentException::new).toFormResponseDto();
 	}
 
-	public List<Form> findAll() {
-		return formJdbcRepository.findAll();
+	public List<FormResponseDto> findAll() {
+		return formJdbcRepository.findAll().stream().map(Form::toFormResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(Form form) {
-		formJdbcRepository.updateByObject(form);
+	public void updateByObject(FormRequestDto formRequestDto) {
+		formJdbcRepository.updateByObject(formRequestDto.toForm());
 	}
 
 	public void deleteById(Long formId) {

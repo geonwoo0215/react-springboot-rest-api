@@ -3,6 +3,8 @@ package com.example.woodraw.domain.form;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.example.woodraw.controller.dto.form.FormRequestDto;
+import com.example.woodraw.controller.dto.form.FormResponseDto;
 import com.example.woodraw.domain.product.Size;
 
 public class Form {
@@ -44,6 +46,10 @@ public class Form {
 
 	public Size getSize() {
 		return size;
+	}
+
+	public FormResponseDto toFormResponseDto() {
+		return new FormResponseDto(this.formId, this.memberId, this.eventId, this.submission, this.size);
 	}
 
 	@Override
