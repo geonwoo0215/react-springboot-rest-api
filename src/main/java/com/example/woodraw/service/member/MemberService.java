@@ -1,9 +1,12 @@
 package com.example.woodraw.service.member;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.woodraw.controller.dto.member.MemberRequestDto;
+import com.example.woodraw.controller.dto.member.MemberResponseDto;
 import com.example.woodraw.domain.member.Member;
 import com.example.woodraw.repository.member.MemberRepository;
 
@@ -16,20 +19,20 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public void insert(Member member) {
-		memberRepository.insert(member);
+	public void insert(MemberRequestDto memberRequestDto) {
+		memberRepository.insert(memberRequestDto.toMember());
 	}
 
-	public Member findById(Long memberId) {
-		return memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+	public MemberResponseDto findById(Long memberId) {
+		return memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new).toMemberResponseDto();
 	}
 
-	public List<Member> findAll() {
-		return memberRepository.findAll();
+	public List<MemberResponseDto> findAll() {
+		return memberRepository.findAll().stream().map(Member::toMemberResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(Member member) {
-		memberRepository.updateByObject(member);
+	public void updateByObject(MemberRequestDto memberRequestDto) {
+		memberRepository.updateByObject(memberRequestDto.toMember());
 	}
 
 	public void deleteById(Long memberId) {

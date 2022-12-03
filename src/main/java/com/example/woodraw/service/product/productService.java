@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.woodraw.controller.dto.ProductRequestDto;
-import com.example.woodraw.controller.dto.ProductResponseDto;
+import com.example.woodraw.controller.dto.product.ProductRequestDto;
+import com.example.woodraw.controller.dto.product.ProductResponseDto;
 import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.repository.product.ProductRepository;
 

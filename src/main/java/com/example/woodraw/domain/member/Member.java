@@ -2,6 +2,8 @@ package com.example.woodraw.domain.member;
 
 import java.util.Objects;
 
+import com.example.woodraw.controller.dto.member.MemberResponseDto;
+
 public class Member {
 
 	private final Long memberId;
@@ -26,6 +28,10 @@ public class Member {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public MemberResponseDto toMemberResponseDto() {
+		return new MemberResponseDto(this.memberId, this.memberName, this.email);
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.example.woodraw.domain.product;
 
 import java.util.Objects;
 
-import com.example.woodraw.controller.dto.ProductResponseDto;
+import com.example.woodraw.controller.dto.product.ProductResponseDto;
 
 public class Product {
 

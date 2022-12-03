@@ -1,4 +1,4 @@
-package com.example.woodraw.controller.dto;
+package com.example.woodraw.controller.dto.product;
 
 import com.example.woodraw.domain.product.Product;
 

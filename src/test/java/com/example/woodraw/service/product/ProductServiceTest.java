@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.woodraw.controller.dto.ProductRequestDto;
+import com.example.woodraw.controller.dto.product.ProductRequestDto;
 import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.repository.product.ProductJdbcRepository;
 
