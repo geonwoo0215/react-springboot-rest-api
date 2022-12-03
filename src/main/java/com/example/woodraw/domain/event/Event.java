@@ -3,6 +3,8 @@ package com.example.woodraw.domain.event;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.example.woodraw.controller.dto.event.EventResponseDto;
+
 public class Event {
 
 	private final Long eventId;
@@ -27,6 +29,10 @@ public class Event {
 
 	public LocalDateTime getDeadLine() {
 		return deadLine;
+	}
+
+	public EventResponseDto toEventResponseDto() {
+		return new EventResponseDto(this.getEventId(), this.productId, this.deadLine);
 	}
 
 	@Override
