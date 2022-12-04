@@ -2,15 +2,26 @@ package com.example.woodraw.controller.dto.product;
 
 import com.example.woodraw.domain.product.Product;
 
-public class ProductRequestDto {
+public class ProductUpdateDto {
+
+	private Long productId;
 
 	private String productName;
 
 	private Integer price;
 
-	public ProductRequestDto(String productName, Integer price) {
+	public ProductUpdateDto(Long productId, String productName, Integer price) {
+		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
+	}
+
+	public Product toProduct() {
+		return new Product(this.productId, this.productName, this.price);
+	}
+
+	public Long getProductId() {
+		return productId;
 	}
 
 	public String getProductName() {
@@ -21,7 +32,4 @@ public class ProductRequestDto {
 		return price;
 	}
 
-	public Product toProduct() {
-		return new Product(null, this.productName, this.price);
-	}
 }

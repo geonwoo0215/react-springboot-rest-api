@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.example.woodraw.controller.dto.productDetail.ProductDetailRequestDto;
 import com.example.woodraw.domain.product.ProductDetail;
 import com.example.woodraw.domain.product.Size;
 import com.example.woodraw.repository.productdetail.ProductDetailJdbcRepository;
@@ -30,14 +31,14 @@ class ProductDetailServiceTest {
 	void insertTest() {
 
 		//given
-		ProductDetail productDetail = new ProductDetail(1L, 1L, Size.SIZE_250, 50);
-		Mockito.doNothing().when(productDetailJdbcRepository).insert(productDetail);
+		ProductDetailRequestDto productDetailRequestDto = new ProductDetailRequestDto(1L, Size.SIZE_250, 50);
+		Mockito.doNothing().when(productDetailJdbcRepository).insert(productDetailRequestDto.toProduct());
 
 		//when
-		productDetailService.insert(productDetail);
+		productDetailService.insert(productDetailRequestDto);
 
 		//then
-		Mockito.verify(productDetailJdbcRepository).insert(productDetail);
+		Mockito.verify(productDetailJdbcRepository).insert(productDetailRequestDto.toProduct());
 	}
 
 	@Test
@@ -78,14 +79,14 @@ class ProductDetailServiceTest {
 	void updateByObjectTest() {
 
 		//given
-		ProductDetail productDetail = new ProductDetail(1L, 1L, Size.SIZE_250, 50);
-		Mockito.doNothing().when(productDetailJdbcRepository).updateByObject(productDetail);
+		ProductDetailRequestDto productDetailRequestDto = new ProductDetailRequestDto(1L, Size.SIZE_250, 50);
+		Mockito.doNothing().when(productDetailJdbcRepository).updateByObject(productDetailRequestDto.toProduct());
 
 		//when
-		productDetailService.updateByObject(productDetail);
+		productDetailService.updateByObject(productDetailRequestDto);
 
 		//then
-		Mockito.verify(productDetailJdbcRepository).updateByObject(productDetail);
+		Mockito.verify(productDetailJdbcRepository).updateByObject(productDetailRequestDto.toProduct());
 
 	}
 

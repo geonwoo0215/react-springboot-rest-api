@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.example.woodraw.controller.dto.form.FormRequestDto;
 import com.example.woodraw.domain.form.Form;
 import com.example.woodraw.domain.product.Size;
 import com.example.woodraw.repository.form.FormJdbcRepository;
@@ -31,14 +32,14 @@ class FormServiceTest {
 	void insertTest() {
 
 		//given
-		Form form = new Form(1L, 1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
-		Mockito.doNothing().when(formJdbcRepository).insert(form);
+		FormRequestDto formRequestDto = new FormRequestDto(1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
+		Mockito.doNothing().when(formJdbcRepository).insert(formRequestDto.toForm());
 
 		//when
-		formService.insert(form);
+		formService.insert(formRequestDto);
 
 		//then
-		Mockito.verify(formJdbcRepository).insert(form);
+		Mockito.verify(formJdbcRepository).insert(formRequestDto.toForm());
 	}
 
 	@Test
@@ -79,14 +80,14 @@ class FormServiceTest {
 	void updateByObjectTest() {
 
 		//given
-		Form form = new Form(1L, 1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
-		Mockito.doNothing().when(formJdbcRepository).updateByObject(form);
+		FormRequestDto formRequestDto = new FormRequestDto(1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
+		Mockito.doNothing().when(formJdbcRepository).updateByObject(formRequestDto.toForm());
 
 		//when
-		formService.updateByObject(form);
+		formService.updateByObject(formRequestDto);
 
 		//then
-		Mockito.verify(formJdbcRepository).updateByObject(form);
+		Mockito.verify(formJdbcRepository).updateByObject(formRequestDto.toForm());
 
 	}
 

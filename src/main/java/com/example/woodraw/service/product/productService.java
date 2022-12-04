@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.woodraw.controller.dto.product.ProductRequestDto;
 import com.example.woodraw.controller.dto.product.ProductResponseDto;
+import com.example.woodraw.controller.dto.product.ProductUpdateDto;
 import com.example.woodraw.domain.product.Product;
 import com.example.woodraw.repository.product.ProductRepository;
 
@@ -31,8 +32,8 @@ public class ProductService {
 		return productRepository.findAll().stream().map(Product::toProductResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(ProductRequestDto productRequestDto) {
-		productRepository.updateByObject(productRequestDto.toProduct());
+	public void updateByObject(ProductUpdateDto productUpdateDto) {
+		productRepository.updateByObject(productUpdateDto.toProduct());
 	}
 
 	public void deleteById(Long productId) {

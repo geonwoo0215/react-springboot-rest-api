@@ -50,7 +50,7 @@ class ProductJdbcRepositoryTest {
 		Integer price = 1500;
 
 		//given
-		Product product = new Product(null, productName, price);
+		Product product = new Product(1L, productName, price);
 		Long productId = productJdbcRepository.insert(product);
 
 		//when

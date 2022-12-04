@@ -13,14 +13,14 @@ public class Product {
 	private final Integer price;
 
 
-	public Product(Long productId, String productName, int price) {
+	public Product(Long productId, String productName, Integer price) {
 		priceValidation(price);
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
 	}
 
-	public void priceValidation(int price) {
+	public void priceValidation(Integer price) {
 		if (price < 0) {
 			throw new IllegalArgumentException();
 		}

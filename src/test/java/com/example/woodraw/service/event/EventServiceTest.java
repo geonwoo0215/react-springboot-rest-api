@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.example.woodraw.controller.dto.event.EventRequestDto;
 import com.example.woodraw.domain.event.Event;
 import com.example.woodraw.repository.event.EventJdbcRepository;
 
@@ -30,14 +31,14 @@ class EventServiceTest {
 	void insertTest() {
 
 		//given
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
-		Mockito.doNothing().when(eventJdbcRepository).insert(event);
+		EventRequestDto eventRequestDto = new EventRequestDto(1L, LocalDateTime.now().withNano(0));
+		Mockito.doNothing().when(eventJdbcRepository).insert(eventRequestDto.toEvent());
 
 		//when
-		eventService.insert(event);
+		eventService.insert(eventRequestDto);
 
 		//then
-		Mockito.verify(eventJdbcRepository).insert(event);
+		Mockito.verify(eventJdbcRepository).insert(eventRequestDto.toEvent());
 	}
 
 	@Test
@@ -78,14 +79,14 @@ class EventServiceTest {
 	void updateByObjectTest() {
 
 		//given
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
-		Mockito.doNothing().when(eventJdbcRepository).updateByObject(event);
+		EventRequestDto eventRequestDto = new EventRequestDto(1L, LocalDateTime.now().withNano(0));
+		Mockito.doNothing().when(eventJdbcRepository).updateByObject(eventRequestDto.toEvent());
 
 		//when
-		eventService.updateByObject(event);
+		eventService.updateByObject(eventRequestDto);
 
 		//then
-		Mockito.verify(eventJdbcRepository).updateByObject(event);
+		Mockito.verify(eventJdbcRepository).updateByObject(eventRequestDto.toEvent());
 
 	}
 

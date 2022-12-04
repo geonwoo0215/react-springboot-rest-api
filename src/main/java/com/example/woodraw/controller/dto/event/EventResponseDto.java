@@ -8,12 +8,12 @@ public class EventResponseDto {
 
 	private Long productId;
 
-	private LocalDateTime localDateTime;
+	private LocalDateTime deadLine;
 
-	public EventResponseDto(Long eventId, Long productId, LocalDateTime localDateTime) {
+	public EventResponseDto(Long eventId, Long productId, LocalDateTime deadLine) {
 		this.eventId = eventId;
 		this.productId = productId;
-		this.localDateTime = localDateTime;
+		this.deadLine = deadLine;
 	}
 
 	public Long getEventId() {
@@ -24,7 +24,7 @@ public class EventResponseDto {
 		return productId;
 	}
 
-	public LocalDateTime getLocalDateTime() {
-		return localDateTime;
+	public LocalDateTime getDeadLine() {
+		return deadLine;
 	}
 }

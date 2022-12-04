@@ -1,5 +1,10 @@
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/spring_order
+    url: jdbc:mysql://127.0.0.1:3306/woo_draw
     username: root
     password: dlrjsdn123
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

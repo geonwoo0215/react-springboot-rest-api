@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.example.woodraw.controller.dto.member.MemberRequestDto;
 import com.example.woodraw.domain.member.Member;
 import com.example.woodraw.repository.member.MemberJdbcRepository;
 
@@ -29,14 +30,14 @@ class MemberServiceTest {
 	void insertTest() {
 
 		//given
-		Member member = new Member(1L, "이건우", "gw0215");
-		Mockito.doNothing().when(memberJdbcRepository).insert(member);
+		MemberRequestDto memberRequestDto = new MemberRequestDto("이건우", "gw0215");
+		Mockito.doNothing().when(memberJdbcRepository).insert(memberRequestDto.toMember());
 
 		//when
-		memberService.insert(member);
+		memberService.insert(memberRequestDto);
 
 		//then
-		Mockito.verify(memberJdbcRepository).insert(member);
+		Mockito.verify(memberJdbcRepository).insert(memberRequestDto.toMember());
 	}
 
 	@Test
@@ -77,14 +78,14 @@ class MemberServiceTest {
 	void updateByObjectTest() {
 
 		//given
-		Member member = new Member(1L, "이건우", "gw0215");
-		Mockito.doNothing().when(memberJdbcRepository).updateByObject(member);
+		MemberRequestDto memberRequestDto = new MemberRequestDto("이건우", "gw0215");
+		Mockito.doNothing().when(memberJdbcRepository).updateByObject(memberRequestDto.toMember());
 
 		//when
-		memberService.updateByObject(member);
+		memberService.updateByObject(memberRequestDto);
 
 		//then
-		Mockito.verify(memberJdbcRepository).updateByObject(member);
+		Mockito.verify(memberJdbcRepository).updateByObject(memberRequestDto.toMember());
 
 	}
 

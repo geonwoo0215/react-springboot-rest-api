@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<main>
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+</main>
+
+<div class="container">
+    <div>
+        <td th:text="'제품 ID : ' + ${product.productId}"></td>
+    </div>
+    <div>
+        <td th:text="'제품 이름 : '+ ${product.productName}"></td>
+    </div>
+    <div>
+        <td th:text="'제픔 가격 : '+ ${product.price}"></td>
+    </div>
+
+    <a href="#" th:href="@{/api/v1/product/{id}/edit (id=${product.productId})}" class="btn btn-primary" role="button">수정</a>
+
+    <form th:action="@{/api/v1/product/{id} (id=${product.productId})}" th:method="delete">
+        <button class="btn btn-danger" type="submit" aria-describedby="submitHelp">삭제</button>
+    </form>
+
+
+</div>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
