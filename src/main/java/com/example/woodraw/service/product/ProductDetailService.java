@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.woodraw.controller.dto.product.ProductResponseDto;
 import com.example.woodraw.controller.dto.productDetail.ProductDetailRequestDto;
 import com.example.woodraw.controller.dto.productDetail.ProductDetailResponseDto;
+import com.example.woodraw.controller.dto.productDetail.ProductDetailUpdateDto;
 import com.example.woodraw.domain.product.ProductDetail;
 import com.example.woodraw.repository.productdetail.ProductDetailRepository;
 
@@ -22,7 +23,7 @@ public class ProductDetailService {
 	}
 
 	public void insert(ProductDetailRequestDto productDetailRequestDto) {
-		productDetailRepository.insert(productDetailRequestDto.toProduct());
+		productDetailRepository.insert(productDetailRequestDto.toProductDetail());
 	}
 
 	public ProductDetailResponseDto findById(Long productDetailId) {
@@ -34,8 +35,8 @@ public class ProductDetailService {
 			Collectors.toList());
 	}
 
-	public void updateByObject(ProductDetailRequestDto productDetailRequestDto) {
-		productDetailRepository.updateByObject(productDetailRequestDto.toProduct());
+	public void updateByObject(ProductDetailUpdateDto productDetailUpdateDto) {
+		productDetailRepository.updateByObject(productDetailUpdateDto.toProductDetail());
 	}
 
 	public void deleteById(Long productDetailId) {

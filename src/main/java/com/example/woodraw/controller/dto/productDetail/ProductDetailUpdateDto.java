@@ -3,7 +3,9 @@ package com.example.woodraw.controller.dto.productDetail;
 import com.example.woodraw.domain.product.ProductDetail;
 import com.example.woodraw.domain.product.Size;
 
-public class ProductDetailRequestDto {
+public class ProductDetailUpdateDto {
+
+	private Long detailId;
 
 	private Long productId;
 
@@ -11,10 +13,19 @@ public class ProductDetailRequestDto {
 
 	private Integer quantity;
 
-	public ProductDetailRequestDto(Long productId, Size size, Integer quantity) {
+	public ProductDetailUpdateDto(Long detailId, Long productId, Size size, Integer quantity) {
+		this.detailId = detailId;
 		this.productId = productId;
 		this.size = size;
 		this.quantity = quantity;
+	}
+
+	public ProductDetail toProductDetail() {
+		return new ProductDetail(this.detailId, this.productId, this.size, this.quantity);
+	}
+
+	public Long getDetailId() {
+		return detailId;
 	}
 
 	public Long getProductId() {
@@ -29,11 +40,4 @@ public class ProductDetailRequestDto {
 		return quantity;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
-	public ProductDetail toProductDetail() {
-		return new ProductDetail(null, this.productId, size, quantity);
-	}
 }

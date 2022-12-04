@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+
+<body>
+<main>
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+</main>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form th:action="@{/api/v1/product/{id}/productDetail (id=${productId})}" method="post">
+
+                <div class="form-group">
+                    <label th:for="size">사이즈</label>
+                    <select id="size" class="form-select" name="size">
+                        <option selected>* Open this select type *</option>
+                        <option value="SIZE_250">250</option>
+                        <option value="SIZE_260">260</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label th:for="quantity">수량</label>
+                    <input type="text" id="quantity" name="quantity" class="form-control"
+                           placeholder="수량을 입력하세요">
+                </div>
+
+                <button type="submit" class="btn btn-primary">생성</button>
+            </form>
+        </div>
+    </div>
+</div>

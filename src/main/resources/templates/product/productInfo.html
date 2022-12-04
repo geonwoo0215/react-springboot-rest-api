@@ -19,6 +19,8 @@
         <td th:text="'제픔 가격 : '+ ${product.price}"></td>
     </div>
 
+    <a href="#" th:href="@{/api/v1/product/{id}/productDetail (id=${product.productId})}" class="btn btn-primary" role="button">상세 추가</a>
+
     <a href="#" th:href="@{/api/v1/product/{id}/edit (id=${product.productId})}" class="btn btn-primary" role="button">수정</a>
 
     <form th:action="@{/api/v1/product/{id} (id=${product.productId})}" th:method="delete">

@@ -38,7 +38,7 @@ public class ProductDetail {
 	}
 
 	public ProductDetailResponseDto toProductDetailResponseDto() {
-		return new ProductDetailResponseDto(this.getDetailId(), this.productId, this.size, this.quantity);
+		return new ProductDetailResponseDto(this.detailId, this.productId, this.size, this.quantity);
 	}
 
 	@Override
