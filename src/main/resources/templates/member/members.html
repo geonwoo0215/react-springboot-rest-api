@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+
+<main>
+
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+
+</main>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>유저 ID</th>
+            <th>유저 이름</th>
+            <th>이메일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${memberList}">
+            <td>
+                <a th:href="@{/api/v1/member/{id} (id=${member.memberId})}">
+                    <span th:text="${member.memberId}"></span>
+                </a>
+            </td>
+            <td th:text="${member.memberName}"></td>
+            <td th:text="${member.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="#" th:href="@{/api/v1/member}" class="btn btn-primary" role="button">유저 만들기</a>
+
+</div>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+

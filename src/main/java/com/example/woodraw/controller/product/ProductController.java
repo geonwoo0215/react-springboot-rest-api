@@ -46,7 +46,6 @@ public class ProductController {
 
 	@PostMapping("/api/v1/product")
 	public String insert(@ModelAttribute ProductRequestDto productRequestDto) {
-		System.out.println("productRequestDto: " + productRequestDto.getProductName() + productRequestDto.getPrice());
 		productService.insert(productRequestDto);
 		return "redirect:/api/v1/products";
 	}

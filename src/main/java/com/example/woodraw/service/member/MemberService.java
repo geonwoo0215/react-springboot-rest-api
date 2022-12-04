@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.woodraw.controller.dto.member.MemberRequestDto;
 import com.example.woodraw.controller.dto.member.MemberResponseDto;
+import com.example.woodraw.controller.dto.member.MemberUpdateDto;
 import com.example.woodraw.domain.member.Member;
 import com.example.woodraw.repository.member.MemberRepository;
 
@@ -31,8 +32,8 @@ public class MemberService {
 		return memberRepository.findAll().stream().map(Member::toMemberResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(MemberRequestDto memberRequestDto) {
-		memberRepository.updateByObject(memberRequestDto.toMember());
+	public void updateByObject(MemberUpdateDto memberUpdateDto) {
+		memberRepository.updateByObject(memberUpdateDto.toMember());
 	}
 
 	public void deleteById(Long memberId) {
