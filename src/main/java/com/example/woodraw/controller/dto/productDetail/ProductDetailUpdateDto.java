@@ -40,4 +40,11 @@ public class ProductDetailUpdateDto {
 		return quantity;
 	}
 
+	public void setDetailId(Long detailId) {
+		this.detailId = detailId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 }

@@ -57,6 +57,8 @@ public class ProductDetailController {
 	@GetMapping("/api/v1/productDetail/{productDetailId}/edit")
 	public String edit(@PathVariable Long productDetailId, Model model) {
 		ProductDetailResponseDto productDetailResponseDto = productDetailService.findById(productDetailId);
+		System.out.println("updated : " + productDetailResponseDto.getDetailId() + productDetailResponseDto.getProductId()
+			+ productDetailResponseDto.getSize() + productDetailResponseDto.getSize());
 		model.addAttribute("productDetail", productDetailResponseDto);
 		return "productDetail/productDetailEditForm";
 	}
@@ -65,6 +67,7 @@ public class ProductDetailController {
 	public String updateByObject(@PathVariable Long productDetailId, @ModelAttribute ProductDetailUpdateDto productDetailUpdateDto) {
 		System.out.println("updated : " + productDetailUpdateDto.getDetailId() + productDetailUpdateDto.getProductId()
 			+ productDetailUpdateDto.getSize() + productDetailUpdateDto.getSize());
+		productDetailUpdateDto.setDetailId(productDetailId);
 		productDetailService.updateByObject(productDetailUpdateDto);
 		return "redirect:/api/v1/productDetails";
 	}
