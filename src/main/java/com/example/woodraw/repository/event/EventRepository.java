@@ -13,8 +13,6 @@ public interface EventRepository {
 
 	List<Event> findAll();
 
-	void updateByObject(Event event);
-
 	void deleteById(Long id);
 
 	void deleteAll();

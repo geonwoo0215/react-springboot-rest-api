@@ -31,10 +31,6 @@ public class EventService {
 		return eventRepository.findAll().stream().map(Event::toEventResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(EventRequestDto eventRequestDto) {
-		eventRepository.updateByObject(eventRequestDto.toEvent());
-	}
-
 	public void deleteById(Long eventId) {
 		eventRepository.deleteById(eventId);
 	}

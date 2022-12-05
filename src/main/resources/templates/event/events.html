@@ -17,7 +17,6 @@
         <tr>
             <th>이벤트 ID</th>
             <th>제품 ID</th>
-            <th>마감일</th>
         </tr>
         </thead>
         <tbody>
@@ -28,12 +27,9 @@
                 </a>
             </td>
             <td th:text="${event.productId}"></td>
-            <td th:text="${event.deadLine}"></td>
         </tr>
         </tbody>
     </table>
-
-    <a href="#" th:href="@{/api/v1/event}" class="btn btn-primary" role="button">제품 만들기</a>
 
 </div>
 

@@ -7,36 +7,25 @@ import com.example.woodraw.domain.product.Size;
 
 public class FormRequestDto {
 
-	private Long memberId;
-
 	private Long eventId;
-
-	private LocalDateTime submission;
 
 	private Size size;
 
-	public FormRequestDto(Long memberId, Long eventId, LocalDateTime submission,
-		Size size) {
-		this.memberId = memberId;
+	private String email;
+
+	public FormRequestDto(Long eventId, Size size, String email) {
 		this.eventId = eventId;
-		this.submission = submission;
 		this.size = size;
+		this.email = email;
 	}
 
-	public void setMemberId(Long memberId) {
-		this.memberId = memberId;
-	}
 
-	public Long getMemberId() {
-		return memberId;
+	public void setEventId(Long eventId) {
+		this.eventId = eventId;
 	}
 
 	public Long getEventId() {
 		return eventId;
-	}
-
-	public LocalDateTime getSubmission() {
-		return submission;
 	}
 
 	public Size getSize() {
@@ -44,6 +33,6 @@ public class FormRequestDto {
 	}
 
 	public Form toForm() {
-		return new Form(null, this.memberId, this.eventId, this.submission, this.size);
+		return new Form(null, this.eventId, this.size, this.email);
 	}
 }

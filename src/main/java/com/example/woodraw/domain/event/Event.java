@@ -11,12 +11,9 @@ public class Event {
 
 	private final Long productId;
 
-	private final LocalDateTime deadLine;
-
-	public Event(Long eventId, Long productId, LocalDateTime deadLine) {
+	public Event(Long eventId, Long productId) {
 		this.eventId = eventId;
 		this.productId = productId;
-		this.deadLine = deadLine;
 	}
 
 	public Long getEventId() {
@@ -27,12 +24,8 @@ public class Event {
 		return productId;
 	}
 
-	public LocalDateTime getDeadLine() {
-		return deadLine;
-	}
-
 	public EventResponseDto toEventResponseDto() {
-		return new EventResponseDto(this.getEventId(), this.productId, this.deadLine);
+		return new EventResponseDto(this.getEventId(), this.productId);
 	}
 
 	@Override
@@ -43,11 +36,11 @@ public class Event {
 			return false;
 		Event event = (Event)o;
 		return Objects.equals(getEventId(), event.getEventId()) && Objects.equals(getProductId(),
-			event.getProductId()) && Objects.equals(getDeadLine(), event.getDeadLine());
+			event.getProductId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getEventId(), getProductId(), getDeadLine());
+		return Objects.hash(getEventId(), getProductId());
 	}
 }

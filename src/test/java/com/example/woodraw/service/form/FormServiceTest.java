@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.woodraw.controller.dto.form.FormRequestDto;
+import com.example.woodraw.controller.dto.form.FormUpdateDto;
 import com.example.woodraw.domain.form.Form;
 import com.example.woodraw.domain.product.Size;
 import com.example.woodraw.repository.form.FormJdbcRepository;
@@ -32,7 +33,7 @@ class FormServiceTest {
 	void insertTest() {
 
 		//given
-		FormRequestDto formRequestDto = new FormRequestDto(1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
+		FormRequestDto formRequestDto = new FormRequestDto(1L, Size.SIZE_250,"gw0215");
 		Mockito.doNothing().when(formJdbcRepository).insert(formRequestDto.toForm());
 
 		//when
@@ -47,7 +48,7 @@ class FormServiceTest {
 	void findByIdTest() {
 
 		//given
-		Form form = new Form(1L, 1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
+		Form form = new Form(1L, 1L,Size.SIZE_250,"gw0215");
 		Mockito.when(formJdbcRepository.findById(form.getEventId())).thenReturn(Optional.of(form));
 
 		//when
@@ -62,7 +63,7 @@ class FormServiceTest {
 	void findAllTest() {
 
 		//given
-		Form form = new Form(1L, 1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
+		Form form = new Form(1L, 1L, Size.SIZE_250,"gw0215");
 		List<Form> formList = new ArrayList<>();
 		formList.add(form);
 		Mockito.when(formJdbcRepository.findAll()).thenReturn(formList);
@@ -80,14 +81,14 @@ class FormServiceTest {
 	void updateByObjectTest() {
 
 		//given
-		FormRequestDto formRequestDto = new FormRequestDto(1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
-		Mockito.doNothing().when(formJdbcRepository).updateByObject(formRequestDto.toForm());
+		FormUpdateDto formUpdateDto = new FormUpdateDto(1L,1L, Size.SIZE_250,"gw0215");
+		Mockito.doNothing().when(formJdbcRepository).updateByObject(formUpdateDto.toForm());
 
 		//when
-		formService.updateByObject(formRequestDto);
+		formService.updateByObject(formUpdateDto);
 
 		//then
-		Mockito.verify(formJdbcRepository).updateByObject(formRequestDto.toForm());
+		Mockito.verify(formJdbcRepository).updateByObject(formUpdateDto.toForm());
 
 	}
 
@@ -96,7 +97,7 @@ class FormServiceTest {
 	void deleteByIdTest() {
 
 		//given
-		Form form = new Form(1L, 1L, 1L, LocalDateTime.now().withNano(0), Size.SIZE_250);
+		Form form = new Form(1L, 1L, Size.SIZE_250,"gw0215");
 		Mockito.doNothing().when(formJdbcRepository).deleteById(form.getFormId());
 
 		//when

@@ -32,21 +32,18 @@ public class EventJdbcRepository implements EventRepository {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("eventId", event.getEventId());
 		paramMap.put("productId", event.getProductId());
-		paramMap.put("deadLine", event.getDeadLine());
 		return paramMap;
 	}
 
 	public RowMapper<Event> memberRowMapper = (result, i) -> {
 		var eventId = result.getLong("event_id");
 		var productId = result.getLong("product_id");
-		var deadLine = result.getTimestamp("deadline").toLocalDateTime();
-		return new Event(eventId, productId, deadLine);
+		return new Event(eventId, productId);
 	};
 
-	String insert = "insert into event(event_id,product_id,deadline) values(:eventId, :productId, :deadLine)";
+	String insert = "insert into event(event_id,product_id) values(:eventId, :productId)";
 	String findById = "select * from event where event_id = :eventId";
 	String findAll = "select * from event";
-	String updateByObject = "update event set deadline = :deadLine where event_id = :eventId";
 	String deleteById = "delete from event where event_id = :eventId";
 	String deleteAll = "delete from event";
 
@@ -72,16 +69,6 @@ public class EventJdbcRepository implements EventRepository {
 	@Override
 	public List<Event> findAll() {
 		return jdbcTemplate.query(findAll, memberRowMapper);
-	}
-
-	@Override
-	public void updateByObject(Event event) {
-		try {
-			jdbcTemplate.update(updateByObject, toParamMap(event));
-
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

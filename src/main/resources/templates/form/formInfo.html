@@ -13,16 +13,13 @@
         <td th:text="'제품상세 ID : ' + ${form.formId}"></td>
     </div>
     <div>
-        <td th:text="'제품 ID : ' + ${form.memberId}"></td>
+        <td th:text="'이벤트 ID : '+ ${form.eventId}"></td>
     </div>
     <div>
-        <td th:text="'사이즈 : '+ ${form.eventId}"></td>
+        <td th:text="'사이즈 : '+ ${form.size}"></td>
     </div>
     <div>
-        <td th:text="'수량 : '+ ${form.submission}"></td>
-    </div>
-    <div>
-        <td th:text="'수량 : '+ ${form.size}"></td>
+        <td th:text="'이메일 : '+ ${form.email}"></td>
     </div>
 
     <a href="#" th:href="@{/api/v1/form/{id}/edit (id=${form.formId})}" class="btn btn-primary" role="button">수정</a>

@@ -60,7 +60,7 @@ public class MemberController {
 	}
 
 	@PatchMapping("/api/v1/member/{memberId}/edit")
-	public String updateByObject(@PathVariable Long memberId,@RequestBody MemberUpdateDto memberUpdateDto) {
+	public String updateByObject(@PathVariable Long memberId,@ModelAttribute MemberUpdateDto memberUpdateDto) {
 		memberService.updateByObject(memberUpdateDto);
 		return "redirect:/api/v1/members";
 	}

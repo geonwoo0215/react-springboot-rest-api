@@ -9,25 +9,21 @@ public class FormUpdateDto {
 
     private Long formId;
 
-    private Long memberId;
-
     private Long eventId;
-
-    private LocalDateTime submission;
 
     private Size size;
 
+    private String email;
+
     public Form toForm() {
-        return new Form(this.formId, this.memberId, this.eventId, this.submission, this.size);
+        return new Form(this.formId, this.eventId, this.size, this.email);
     }
 
-    public FormUpdateDto(Long formId, Long memberId, Long eventId, LocalDateTime submission,
-                         Size size) {
+    public FormUpdateDto(Long formId, Long eventId, Size size, String email) {
         this.formId = formId;
-        this.memberId = memberId;
         this.eventId = eventId;
-        this.submission = submission;
         this.size = size;
+        this.email = email;
     }
 
     public void setFormId(Long formId) {
@@ -38,19 +34,15 @@ public class FormUpdateDto {
         return formId;
     }
 
-    public Long getMemberId() {
-        return memberId;
-    }
-
     public Long getEventId() {
         return eventId;
     }
 
-    public LocalDateTime getSubmission() {
-        return submission;
-    }
-
     public Size getSize() {
         return size;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

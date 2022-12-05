@@ -56,7 +56,7 @@ class EventJdbcRepositoryTest {
 		//given
 		Product product = new Product(null, "나이키", 1500);
 		Long productId = productJdbcRepository.insert(product);
-		Event event = new Event(null, productId, localDateTime);
+		Event event = new Event(null, productId);
 		Long eventId = eventJdbcRepository.insert(event);
 
 		//when
@@ -64,7 +64,6 @@ class EventJdbcRepositoryTest {
 
 		//then
 		Assertions.assertThat(savedEvent).isPresent();
-		Assertions.assertThat(savedEvent.get().getDeadLine()).isEqualTo(localDateTime);
 
 	}
 
@@ -78,8 +77,8 @@ class EventJdbcRepositoryTest {
 		Long productId1 = productJdbcRepository.insert(product1);
 		Long productId2 = productJdbcRepository.insert(product2);
 
-		Event event1 = new Event(null, productId1, LocalDateTime.now().withNano(0));
-		Event event2 = new Event(null, productId2, LocalDateTime.now().withNano(0));
+		Event event1 = new Event(null, productId1);
+		Event event2 = new Event(null, productId2);
 		eventJdbcRepository.insert(event1);
 		eventJdbcRepository.insert(event2);
 
@@ -100,9 +99,9 @@ class EventJdbcRepositoryTest {
 		Product product = new Product(null, "나이키", 1500);
 		Long productId = productJdbcRepository.insert(product);
 
-		Event event = new Event(null, productId, localDateTime);
+		Event event = new Event(null, productId);
 		Long eventId = eventJdbcRepository.insert(event);
-		Event updateEvent = new Event(eventId, productId, localDateTime.plusHours(2));
+		Event updateEvent = new Event(eventId, productId);
 
 		//when
 		eventJdbcRepository.updateByObject(updateEvent);
@@ -110,7 +109,6 @@ class EventJdbcRepositoryTest {
 
 		//then
 		Assertions.assertThat(updatedEvent).isPresent();
-		Assertions.assertThat(updatedEvent.get().getDeadLine()).isEqualTo(localDateTime.plusHours(2));
 
 	}
 
@@ -122,7 +120,7 @@ class EventJdbcRepositoryTest {
 		Product product = new Product(null, "나이키", 1500);
 		Long productId = productJdbcRepository.insert(product);
 
-		Event event = new Event(null, productId, LocalDateTime.now().withNano(0));
+		Event event = new Event(null, productId);
 		Long eventId = eventJdbcRepository.insert(event);
 
 		//when

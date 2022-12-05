@@ -21,6 +21,10 @@
 
     <a href="#" th:href="@{/api/v1/product/{id}/productDetail (id=${product.productId})}" class="btn btn-primary" role="button">상세 추가</a>
 
+    <form th:action="@{/api/v1/product/{id}/event (id=${product.productId})}" th:method="post">
+        <button type="submit" class="btn btn-primary">이벤트 생성</button>
+    </form>
+
     <a href="#" th:href="@{/api/v1/product/{id}/edit (id=${product.productId})}" class="btn btn-primary" role="button">수정</a>
 
     <form th:action="@{/api/v1/product/{id} (id=${product.productId})}" th:method="delete">

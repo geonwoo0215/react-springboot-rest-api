@@ -19,8 +19,6 @@
         <td th:text="'제픔 가격 : '+ ${member.email}"></td>
     </div>
 
-    <a href="#" th:href="@{/api/v1/product/{id}/form (id=${product.productId})}" class="btn btn-primary" role="button">응모</a>
-
     <a href="#" th:href="@{/api/v1/member/{id}/edit (id=${member.memberId})}" class="btn btn-primary" role="button">수정</a>
 
     <form th:action="@{/api/v1/member/{id} (id=${member.memberId})}" th:method="delete">

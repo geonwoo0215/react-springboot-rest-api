@@ -31,38 +31,28 @@ public class EventController {
 	@GetMapping("/api/v1/events")
 	public String findAll(Model model) {
 		List<EventResponseDto> eventResponseDtoList = eventService.findAll();
-		model.addAttribute("eventResponseDtoList", eventResponseDtoList);
+		model.addAttribute("eventList", eventResponseDtoList);
 		return "event/events";
 
 	}
 
 	@GetMapping("/api/v1/event/{eventId}")
-	public String findById(@PathVariable Long eventId) {
-		EventResponseDto memberResponseDtoList = eventService.findById(eventId);
+	public String findById(@PathVariable Long eventId,Model model) {
+		EventResponseDto eventResponseDto = eventService.findById(eventId);
+		model.addAttribute("event", eventResponseDto);
 		return "event/eventInfo";
 	}
 
-	@GetMapping("/api/v1/event")
-	public String create(@PathVariable Long productId, Model model) {
-		model.addAttribute("productId", productId);
-		return "event/eventForm";
-	}
-
-	@PostMapping("/api/v1/event")
-	public String insert(@ModelAttribute EventRequestDto formRequestDto) {
+	@PostMapping("/api/v1/product/{productId}/event")
+	public String insert(@PathVariable Long productId, @ModelAttribute EventRequestDto formRequestDto) {
+		formRequestDto.setProductId(productId);
 		eventService.insert(formRequestDto);
-		return "redirect:/api/vi/events";
-	}
-
-	@PatchMapping("/api/v1/event")
-	public ResponseEntity<Void> updateByObject(@RequestBody EventRequestDto formRequestDto) {
-		eventService.updateByObject(formRequestDto);
-		return ResponseEntity.ok().build();
+		return "redirect:/api/v1/events";
 	}
 
 	@DeleteMapping("/api/v1/event/{eventId}")
-	public ResponseEntity<Void> delete(@PathVariable Long eventId) {
+	public String delete(@PathVariable Long eventId) {
 		eventService.deleteById(eventId);
-		return ResponseEntity.ok().build();
+		return "redirect:/api/v1/events";
 	}
 }

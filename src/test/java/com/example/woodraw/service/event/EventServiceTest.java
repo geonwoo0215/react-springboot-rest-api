@@ -31,7 +31,7 @@ class EventServiceTest {
 	void insertTest() {
 
 		//given
-		EventRequestDto eventRequestDto = new EventRequestDto(1L, LocalDateTime.now().withNano(0));
+		EventRequestDto eventRequestDto = new EventRequestDto(1L);
 		Mockito.doNothing().when(eventJdbcRepository).insert(eventRequestDto.toEvent());
 
 		//when
@@ -46,7 +46,7 @@ class EventServiceTest {
 	void findByIdTest() {
 
 		//given
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
+		Event event = new Event(1L, 1L);
 		Mockito.when(eventJdbcRepository.findById(event.getEventId())).thenReturn(Optional.of(event));
 
 		//when
@@ -61,7 +61,7 @@ class EventServiceTest {
 	void findAllTest() {
 
 		//given
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
+		Event event = new Event(1L, 1L);
 		List<Event> eventList = new ArrayList<>();
 		eventList.add(event);
 		Mockito.when(eventJdbcRepository.findAll()).thenReturn(eventList);
@@ -75,27 +75,11 @@ class EventServiceTest {
 	}
 
 	@Test
-	@DisplayName("멤버를 수정한다. - 성공")
-	void updateByObjectTest() {
-
-		//given
-		EventRequestDto eventRequestDto = new EventRequestDto(1L, LocalDateTime.now().withNano(0));
-		Mockito.doNothing().when(eventJdbcRepository).updateByObject(eventRequestDto.toEvent());
-
-		//when
-		eventService.updateByObject(eventRequestDto);
-
-		//then
-		Mockito.verify(eventJdbcRepository).updateByObject(eventRequestDto.toEvent());
-
-	}
-
-	@Test
 	@DisplayName("멤버를 삭제한다. - 성공")
 	void deleteByIdTest() {
 
 		//given
-		Event event = new Event(1L, 1L, LocalDateTime.now().withNano(0));
+		Event event = new Event(1L, 1L);
 		Mockito.doNothing().when(eventJdbcRepository).deleteById(event.getEventId());
 
 		//when

@@ -8,22 +8,19 @@ public class EventRequestDto {
 
 	private Long productId;
 
-	private LocalDateTime deadLine;
-
-	public EventRequestDto(Long productId, LocalDateTime deadLine) {
+	public EventRequestDto(Long productId) {
 		this.productId = productId;
-		this.deadLine = deadLine;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public Long getProductId() {
 		return productId;
 	}
 
-	public LocalDateTime getDeadLine() {
-		return deadLine;
-	}
-
 	public Event toEvent() {
-		return new Event(null, this.productId, this.deadLine);
+		return new Event(null, this.productId);
 	}
 }

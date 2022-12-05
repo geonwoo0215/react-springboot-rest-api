@@ -31,23 +31,21 @@ public class FormJdbcRepository implements FormRepository {
 	public Map<String, Object> toParamMap(Form form) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("formId", form.getFormId());
-		paramMap.put("memberId", form.getMemberId());
+		paramMap.put("email", form.getEmail());
 		paramMap.put("eventId", form.getEventId());
-		paramMap.put("submission", form.getSubmission());
 		paramMap.put("size", form.getSize().getLength());
 		return paramMap;
 	}
 
 	public RowMapper<Form> memberRowMapper = (result, i) -> {
 		var formId = result.getLong("form_id");
-		var memberId = result.getLong("member_id");
+		var email = result.getString("email");
 		var eventId = result.getLong("event_id");
-		var submission = result.getTimestamp("submission").toLocalDateTime();
 		var size = Size.getSizeByLength(result.getString("size"));
-		return new Form(formId, memberId, eventId, submission, size);
+		return new Form(formId, eventId, size,email);
 	};
 
-	String insert = "insert into form(member_id,event_id,submission,size) values(:memberId, :eventId, :submission, :size)";
+	String insert = "insert into form(event_id,size,email) values( :eventId, :size,:email)";
 	String findById = "select * from form where form_id = :formId";
 	String findAll = "select * from form";
 	String updateByObject = "update form set size = :size where form_id = :formId";

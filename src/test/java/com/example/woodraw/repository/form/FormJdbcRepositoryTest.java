@@ -64,8 +64,7 @@ class FormJdbcRepositoryTest {
 	void findByIdTest() {
 
 		Size size = Size.SIZE_250;
-		LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
-
+		String email = "gw0215";
 		//given
 		Product product = new Product(null, "나이키", 1500);
 		Long productId = productJdbcRepository.insert(product);
@@ -73,11 +72,10 @@ class FormJdbcRepositoryTest {
 		Member member = new Member(null, "이건우", "gw0215");
 		Long memberId = memberJdbcRepository.insert(member);
 
-		Event event = new Event(null, productId, localDateTime);
+		Event event = new Event(null, productId);
 		Long eventId = eventJdbcRepository.insert(event);
 
-		Form form = new Form(null, memberId, eventId, localDateTime,
-			size);
+		Form form = new Form(null, eventId, size, email);
 		Long formId = formJdbcRepository.insert(form);
 
 		//when
@@ -86,7 +84,6 @@ class FormJdbcRepositoryTest {
 		//then
 		Assertions.assertThat(savedForm).isPresent();
 		Assertions.assertThat(savedForm.get().getSize()).isEqualTo(size);
-		Assertions.assertThat(savedForm.get().getSubmission()).isEqualTo(localDateTime);
 	}
 
 	@Test
@@ -102,13 +99,11 @@ class FormJdbcRepositoryTest {
 		Long memberId1 = memberJdbcRepository.insert(member1);
 		Long memberId2 = memberJdbcRepository.insert(member2);
 
-		Event event = new Event(null, productId, LocalDateTime.now().withNano(0));
+		Event event = new Event(null, productId);
 		Long eventId = eventJdbcRepository.insert(event);
 
-		Form form1 = new Form(null, memberId1, eventId, LocalDateTime.now().withNano(0),
-			Size.SIZE_250);
-		Form form2 = new Form(null, memberId2, eventId, LocalDateTime.now().withNano(0),
-			Size.SIZE_250);
+		Form form1 = new Form(null, eventId, Size.SIZE_250, "gw0215");
+		Form form2 = new Form(null,  eventId, Size.SIZE_250,"gw0215");
 		formJdbcRepository.insert(form1);
 		formJdbcRepository.insert(form2);
 
@@ -123,7 +118,7 @@ class FormJdbcRepositoryTest {
 	@DisplayName("파라미터로 form 객체를 받아 성공적으로 업데이트 한다.")
 	void updateByObjectSuccessTest() {
 
-		LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
+
 		Size size = Size.SIZE_260;
 
 		//given
@@ -133,22 +128,19 @@ class FormJdbcRepositoryTest {
 		Member member = new Member(null, "이건우", "gw0215");
 		Long memberId = memberJdbcRepository.insert(member);
 
-		Event event = new Event(null, productId, localDateTime);
+		Event event = new Event(null, productId);
 		Long eventId = eventJdbcRepository.insert(event);
 
-		Form form = new Form(null, memberId, eventId, localDateTime,
-			Size.SIZE_250);
+		Form form = new Form(null,  eventId, Size.SIZE_250, "gw0215");
 		Long formId = formJdbcRepository.insert(form);
 
-		Form updateForm = new Form(formId, memberId, eventId, localDateTime,
-			Size.SIZE_260);
+		Form updateForm = new Form(formId, eventId, Size.SIZE_260, "gw0215");
 		//when
 		formJdbcRepository.updateByObject(updateForm);
 		Optional<Form> updatedForm = formJdbcRepository.findById(formId);
 
 		//then
 		Assertions.assertThat(updatedForm).isPresent();
-		Assertions.assertThat(updatedForm.get().getSubmission()).isEqualTo(localDateTime);
 		Assertions.assertThat(updatedForm.get().getSize()).isEqualTo(size);
 
 	}
@@ -162,10 +154,9 @@ class FormJdbcRepositoryTest {
 		Long productId = productJdbcRepository.insert(product);
 		Member member = new Member(null, "이건우", "gw0215");
 		Long memberId = memberJdbcRepository.insert(member);
-		Event event = new Event(null, productId, LocalDateTime.now().withNano(0));
+		Event event = new Event(null, productId );
 		Long eventId = eventJdbcRepository.insert(event);
-		Form form = new Form(null, memberId, eventId, LocalDateTime.now().withNano(0),
-			Size.SIZE_250);
+		Form form = new Form(null, eventId, Size.SIZE_250, "gw015");
 
 		Long formId = formJdbcRepository.insert(form);
 

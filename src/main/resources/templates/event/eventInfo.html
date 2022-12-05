@@ -15,11 +15,8 @@
     <div>
         <td th:text="'제품 이름 : '+ ${event.productId}"></td>
     </div>
-    <div>
-        <td th:text="'제픔 가격 : '+ ${event.deadLine}"></td>
-    </div>
 
-    <a href="#" th:href="@{/api/v1/event/{id}/event (id=${event.eventId})}" class="btn btn-primary" role="button">상세 추가</a>
+    <a href="#" th:href="@{/api/v1/event/{id}/form (id=${event.eventId})}" class="btn btn-primary" role="button">응모 신청서 작성</a>
 
     <form th:action="@{/api/v1/event/{id} (id=${event.eventId})}" th:method="delete">
         <button class="btn btn-danger" type="submit" aria-describedby="submitHelp">삭제</button>
