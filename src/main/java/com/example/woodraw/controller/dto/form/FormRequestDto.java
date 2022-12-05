@@ -23,6 +23,10 @@ public class FormRequestDto {
 		this.size = size;
 	}
 
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
+
 	public Long getMemberId() {
 		return memberId;
 	}

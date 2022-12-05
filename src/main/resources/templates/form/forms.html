@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+
+<main>
+
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+
+</main>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>응모 ID</th>
+            <th>멤버 ID</th>
+            <th>이벤트 ID</th>
+            <th>제출일</th>
+            <th>응모 사이즈</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="productDetail : ${productDetailList}">
+            <td>
+                <a th:href="@{/api/v1/form/{id} (id=${form.formId})}">
+                    <span th:text="${form.formId}"></span>
+                </a>
+            </td>
+            <td th:text="${form.memberId}"></td>
+            <td th:text="${form.eventId}"></td>
+            <td th:text="${form.submission}"></td>
+            <td th:text="${form.size}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+

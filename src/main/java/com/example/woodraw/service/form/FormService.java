@@ -3,6 +3,7 @@ package com.example.woodraw.service.form;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.woodraw.controller.dto.form.FormUpdateDto;
 import org.springframework.stereotype.Service;
 
 import com.example.woodraw.controller.dto.form.FormRequestDto;
@@ -31,8 +32,8 @@ public class FormService {
 		return formJdbcRepository.findAll().stream().map(Form::toFormResponseDto).collect(Collectors.toList());
 	}
 
-	public void updateByObject(FormRequestDto formRequestDto) {
-		formJdbcRepository.updateByObject(formRequestDto.toForm());
+	public void updateByObject(FormUpdateDto formUpdateDto) {
+		formJdbcRepository.updateByObject(formUpdateDto.toForm());
 	}
 
 	public void deleteById(Long formId) {

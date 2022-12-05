@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+
+<main>
+
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+
+</main>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>이벤트 ID</th>
+            <th>제품 ID</th>
+            <th>마감일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event : ${eventList}">
+            <td>
+                <a th:href="@{/api/v1/event/{id} (id=${event.eventId})}">
+                    <span th:text="${event.eventId}"></span>
+                </a>
+            </td>
+            <td th:text="${event.productId}"></td>
+            <td th:text="${event.deadLine}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="#" th:href="@{/api/v1/event}" class="btn btn-primary" role="button">제품 만들기</a>
+
+</div>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+

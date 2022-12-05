@@ -20,11 +20,11 @@ import com.example.woodraw.service.event.EventService;
 
 
 @Controller
-public class EventRestController {
+public class EventController {
 
 	private final EventService eventService;
 
-	public EventRestController(EventService eventService) {
+	public EventController(EventService eventService) {
 		this.eventService = eventService;
 	}
 
@@ -37,13 +37,14 @@ public class EventRestController {
 	}
 
 	@GetMapping("/api/v1/event/{eventId}")
-	public ResponseEntity<EventResponseDto> findById(@PathVariable Long eventId) {
+	public String findById(@PathVariable Long eventId) {
 		EventResponseDto memberResponseDtoList = eventService.findById(eventId);
-		return ResponseEntity.ok(memberResponseDtoList);
+		return "event/eventInfo";
 	}
 
 	@GetMapping("/api/v1/event")
-	public String create() {
+	public String create(@PathVariable Long productId, Model model) {
+		model.addAttribute("productId", productId);
 		return "event/eventForm";
 	}
 
