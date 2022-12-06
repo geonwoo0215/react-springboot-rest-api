@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<main>
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+</main>
+
+<div class="container">
+    <div>
+        <td th:text="'제품 ID : ' + ${event.eventId}"></td>
+    </div>
+    <div>
+        <td th:text="'제품 이름 : '+ ${event.productId}"></td>
+    </div>
+
+    <a href="#" th:href="@{/api/v1/event/{id}/form (id=${event.eventId})}" class="btn btn-primary" role="button">응모 신청서 작성</a>
+
+    <form th:action="@{/api/v1/event/{id} (id=${event.eventId})}" th:method="delete">
+        <button class="btn btn-danger" type="submit" aria-describedby="submitHelp">삭제</button>
+    </form>
+
+
+</div>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

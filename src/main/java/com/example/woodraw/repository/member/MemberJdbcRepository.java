@@ -93,4 +93,5 @@ public class MemberJdbcRepository implements MemberRepository {
 	public void deleteAll() {
 		jdbcTemplate.update(deleteAll, Collections.emptyMap());
 	}
+
 }

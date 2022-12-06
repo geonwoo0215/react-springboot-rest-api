@@ -1,12 +1,12 @@
 package com.example.woodraw.domain.winner;
 
-public class Winner {
+public class Participant {
 
 	private final Long memberId;
 
 	private final Long formId;
 
-	public Winner(Long memberId, Long formId) {
+	public Participant(Long memberId, Long formId) {
 		this.memberId = memberId;
 		this.formId = formId;
 	}

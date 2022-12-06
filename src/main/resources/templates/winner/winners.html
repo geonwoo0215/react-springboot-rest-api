@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+
+<main>
+
+  <div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  </div>
+
+</main>
+
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>제품 ID</th>
+      <th>제품 이름</th>
+      <th>제품 가격</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result : ${resultList}">
+      <td>
+        <a th:href="@{/api/v1/product/{id} (id=${product.productId})}">
+          <span th:text="${product.productId}"></span>
+        </a>
+      </td>
+      <td th:text="${product.productName}"></td>
+      <td th:text="${product.price}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="#" th:href="@{/api/v1/product}" class="btn btn-primary" role="button">제품 만들기</a>
+
+</div>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
