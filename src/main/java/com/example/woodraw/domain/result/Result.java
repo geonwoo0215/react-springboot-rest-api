@@ -1,5 +1,6 @@
 package com.example.woodraw.domain.result;
 
+import com.example.woodraw.controller.dto.resultDto.ResultResponseDto;
 import com.example.woodraw.domain.member.Member;
 import com.example.woodraw.domain.product.Size;
 
@@ -9,18 +10,22 @@ public class Result {
 
     private final Size size;
 
-    private final List<Member> memberList;
+    private final Member member;
 
-    public Result(Size size, List<Member> memberList) {
+    public Result(Size size, Member member) {
         this.size = size;
-        this.memberList = memberList;
+        this.member = member;
     }
 
     public Size getSize() {
         return size;
     }
 
-    public List<Member> getMemberList() {
-        return memberList;
+    public Member getMember() {
+        return member;
+    }
+
+    public ResultResponseDto toResultResponseDto() {
+        return new ResultResponseDto(this.size, this.member);
     }
 }

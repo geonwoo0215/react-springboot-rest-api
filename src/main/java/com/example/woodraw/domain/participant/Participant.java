@@ -1,4 +1,4 @@
-package com.example.woodraw.domain.winner;
+package com.example.woodraw.domain.participant;
 
 public class Participant {
 

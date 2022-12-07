@@ -10,13 +10,13 @@
 
 <div class="container">
     <div>
-        <td th:text="'제품 ID : ' + ${member.memberId}"></td>
+        <td th:text="'멤버 ID : ' + ${member.memberId}"></td>
     </div>
     <div>
-        <td th:text="'제품 이름 : '+ ${member.memberName}"></td>
+        <td th:text="'멤버 이름 : '+ ${member.memberName}"></td>
     </div>
     <div>
-        <td th:text="'제픔 가격 : '+ ${member.email}"></td>
+        <td th:text="'이메일 : '+ ${member.email}"></td>
     </div>
 
     <a href="#" th:href="@{/api/v1/member/{id}/edit (id=${member.memberId})}" class="btn btn-primary" role="button">수정</a>

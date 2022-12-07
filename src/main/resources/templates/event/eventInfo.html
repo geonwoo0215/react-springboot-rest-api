@@ -10,13 +10,20 @@
 
 <div class="container">
     <div>
-        <td th:text="'제품 ID : ' + ${event.eventId}"></td>
+        <td th:text="'이벤트 ID : ' + ${event.eventId}"></td>
     </div>
     <div>
-        <td th:text="'제품 이름 : '+ ${event.productId}"></td>
+        <td th:text="'제품 ID : '+ ${event.productId}"></td>
     </div>
 
     <a href="#" th:href="@{/api/v1/event/{id}/form (id=${event.eventId})}" class="btn btn-primary" role="button">응모 신청서 작성</a>
+
+
+    <form th:action="@{/api/v1/event/{id}/result (id=${event.eventId})}" th:method="post">
+        <button class="btn btn-danger" type="submit" aria-describedby="submitHelp">응모 추점 하기</button>
+    </form>
+
+    <a href="#" th:href="@{/api/v1/event/{id}/result (id=${event.eventId})}" class="btn btn-primary" role="button">응모 결과 보기</a>
 
     <form th:action="@{/api/v1/event/{id} (id=${event.eventId})}" th:method="delete">
         <button class="btn btn-danger" type="submit" aria-describedby="submitHelp">삭제</button>

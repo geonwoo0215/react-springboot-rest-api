@@ -37,6 +37,13 @@ public class ProductDetailJdbcRepository implements ProductDetailRepository {
 		return paramMap;
 	}
 
+	public Map<String, Object> toParamMap(Long productId, Size size) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("productId", productId);
+		paramMap.put("size", size.getLength());
+		return paramMap;
+	}
+
 	public RowMapper<ProductDetail> productRowMapper = (result, i) -> {
 		var detailId = result.getLong("detail_id");
 		var productId = result.getLong("product_id");
@@ -44,6 +51,14 @@ public class ProductDetailJdbcRepository implements ProductDetailRepository {
 		var quantity = result.getInt("quantity");
 		return new ProductDetail(detailId, productId, size, quantity);
 	};
+
+	public RowMapper<Size> sizeRowMapper = (result, i) -> {
+		var size = Size.getSizeByLength(result.getString("size"));
+		return size;
+	};
+
+
+	public RowMapper<Integer> productQuantityRowMapper = (result, i) -> result.getInt("quantity");
 
 	String insert = "insert into detail(product_id,size,quantity) values(:productId, :size, :quantity)";
 	String findById = "select * from detail where detail_id = :detailId";
@@ -94,5 +109,18 @@ public class ProductDetailJdbcRepository implements ProductDetailRepository {
 	@Override
 	public void deleteAll() {
 		jdbcTemplate.update(deleteAll, Collections.emptyMap());
+	}
+
+	@Override
+	public Integer findQuantityProductId(Long productId, Size size) {
+		return jdbcTemplate.queryForObject(
+			"SELECT quantity from detail where detail.product_id = :productId AND detail.size = :size",
+			toParamMap(productId,size), productQuantityRowMapper);
+	}
+
+	@Override
+	public List<Size> possibleSize(Long productId) {
+		return jdbcTemplate.query("SELECT size from detail where detail.product_id = :productId",
+			Collections.singletonMap("productId", productId), sizeRowMapper);
 	}
 }

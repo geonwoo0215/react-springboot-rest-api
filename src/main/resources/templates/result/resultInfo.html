@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body data-new-gr-c-s-check-loaded="14.1087.0" data-gr-ext-installed="">
+
+<main>
+
+    <div class="container">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    </div>
+
+</main>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>제품사이즈</th>
+            <th>당첨자 이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${resultList}">
+            <td th:text="${result.size}"></td>
+            <td th:text="${result.member.memberName}"><td/>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>

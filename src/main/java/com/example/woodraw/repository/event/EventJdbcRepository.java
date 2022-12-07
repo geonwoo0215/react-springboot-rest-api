@@ -35,6 +35,8 @@ public class EventJdbcRepository implements EventRepository {
 		return paramMap;
 	}
 
+	public RowMapper<Long> productIdRowMapper = (result, i) -> result.getLong("product_id");
+
 	public RowMapper<Event> memberRowMapper = (result, i) -> {
 		var eventId = result.getLong("event_id");
 		var productId = result.getLong("product_id");
@@ -80,4 +82,12 @@ public class EventJdbcRepository implements EventRepository {
 	public void deleteAll() {
 		jdbcTemplate.update(deleteAll, Collections.emptyMap());
 	}
+
+	@Override
+	public Long findProductIdByEventId(Long eventId) {
+		return jdbcTemplate.queryForObject(
+			"SELECT event.product_id from event where event.event_id = :eventId",
+			Collections.singletonMap("eventId", eventId), productIdRowMapper);
+	}
+
 }

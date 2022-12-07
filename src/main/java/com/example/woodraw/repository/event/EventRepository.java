@@ -17,4 +17,5 @@ public interface EventRepository {
 
 	void deleteAll();
 
+	Long findProductIdByEventId(Long eventId);
 }

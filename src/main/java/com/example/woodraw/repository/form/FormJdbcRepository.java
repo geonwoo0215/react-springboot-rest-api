@@ -42,7 +42,11 @@ public class FormJdbcRepository implements FormRepository {
 		var email = result.getString("email");
 		var eventId = result.getLong("event_id");
 		var size = Size.getSizeByLength(result.getString("size"));
-		return new Form(formId, eventId, size,email);
+		return new Form(formId, eventId, size, email);
+	};
+
+	public RowMapper<Size> sizeRowMapper = (result, i) -> {
+		return Size.getSizeByLength(result.getString("size"));
 	};
 
 	String insert = "insert into form(event_id,size,email) values( :eventId, :size,:email)";
@@ -56,7 +60,7 @@ public class FormJdbcRepository implements FormRepository {
 	public Long insert(Form form) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource(toParamMap(form));
-		jdbcTemplate.update(insert, sqlParameterSource,keyHolder);
+		jdbcTemplate.update(insert, sqlParameterSource, keyHolder);
 		return Objects.requireNonNull(keyHolder.getKey()).longValue();
 	}
 
@@ -69,6 +73,11 @@ public class FormJdbcRepository implements FormRepository {
 		} catch (DataAccessException e) {
 			return Optional.empty();
 		}
+	}
+
+	public Size findSizeById(Long formId) {
+		return jdbcTemplate.queryForObject("SELECT form.size from form where form.form_id = :formId",
+			Collections.singletonMap("formId", formId), sizeRowMapper);
 	}
 
 	@Override
